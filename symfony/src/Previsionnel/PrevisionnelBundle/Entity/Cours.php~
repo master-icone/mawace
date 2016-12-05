@@ -1,0 +1,47 @@
+<?php
+
+namespace Previsionnel\PrevisionnelBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Cours
+ *
+ * @ORM\Table(name="cours")
+ * @ORM\Entity
+ */
+class Cours
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idUE", type="integer", nullable=false)
+     */
+    private $idue;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idTypeCours", type="integer", nullable=false)
+     */
+    private $idtypecours;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annee", type="string", length=9, nullable=false)
+     */
+    private $annee;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
