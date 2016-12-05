@@ -1,0 +1,41 @@
+  <head>
+  <!--section style="width: 900px; margin: 0 auto;border:1px solid;"-->
+    <title>Page professeur</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" >
+	</script>
+	<script type="text/javascript" src="//code.highcharts.com/4.1.8/highcharts.js">
+	</script>
+	<script type="text/javascript" src="//code.highcharts.com/4.1.8/modules/exporting.js">
+	</script>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+  </head>
+  <body style="width: 900px; margin: 0 auto;border:1px solid;">
+    <h1 style="width:100%;text-align:center;">Résumé pour {{user.prenom}} {{user.nom}}</h1>
+	<script type="text/javascript">
+		{{ chart(linechart) }}
+	</script>
+	<article style="width: 100%; height:70%">
+	<div style="float:left;margin-left:6%;margin-top:16%;width:40%;border:1px solid;padding:3px;">
+		<p>Nombre d'heures totales: {{ total }}</p>
+		<p> Nombre d'heures hors-service : {{horsService}}</p>
+		<p>Nombre d'heures totales avec coefficients: {{ totalCoeff }}</p>
+	</div>
+	<div id="linechart" style="float:left;width:50%;"></div>
+	</article>
+	<ul style="padding:0;">
+		{% for ue in UEs %}
+			{% for u in ue %}
+				<li style="list-style: none;width:50%;margin:2 auto;text-align:center;border:1px solid;border-radius: 10px;padding:0;">
+				{{ u.nom }}<br/>
+				{% for key, he in heuresUEs %}
+					{% if key == u.id %}
+						{% if he.CM is defined %} CM: {{he.CM}} heure(s){% endif %} {% if he.TD is defined %} TD: {{he.TD}} heure(s){% endif %} {% if he.TP is defined %} TP: {{he.TP}} heure(s){% endif %} {% if he.AUTRE is defined %} Autre: {{he.AUTRE}} heure(s){% endif %}</li>
+					{% endif %}
+				{% endfor %}
+				</li>
+			{% endfor %}
+		{% endfor %}
+	</ul>
+	<!--/section-->
+</body>
+

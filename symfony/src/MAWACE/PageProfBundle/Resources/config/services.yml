@@ -1,0 +1,4 @@
+services:
+#    mawace_page_prof.example:
+#        class: MAWACE\PageProfBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

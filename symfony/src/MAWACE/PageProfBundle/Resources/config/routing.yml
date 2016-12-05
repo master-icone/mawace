@@ -1,0 +1,3 @@
+mawace_page_professeur:
+    path:    /page-professeur{id}
+    defaults: { _controller: MAWACEPageProfBundle:Resume:view }
