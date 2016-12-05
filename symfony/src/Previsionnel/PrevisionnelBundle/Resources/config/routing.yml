@@ -1,35 +1,35 @@
 previsionnel_homepage:
     path:     /
-    defaults: { _controller: PrevisionnelBundle:Default:index }
+    defaults: { _controller: PrevisionnelBundle:Prevision:index }
 
 previsionnel_search_utilisateurs:
     path:     /search-utilisateurs
-    defaults: { _controller: PrevisionnelBundle:Default:searchUtilisateurs }
+    defaults: { _controller: PrevisionnelBundle:Prevision:searchUtilisateurs }
 
 previsionnel_get_utilisateurs:
     path:     /get-utilisateurs/{id}
-    defaults: { _controller: PrevisionnelBundle:Default:getUtilisateurs }
+    defaults: { _controller: PrevisionnelBundle:Prevision:getUtilisateurs }
 
 previsionnel_search_ue:
     path:     /search-ue
-    defaults: { _controller: PrevisionnelBundle:Default:searchUe }
+    defaults: { _controller: PrevisionnelBundle:Prevision:searchUe }
 
 previsionnel_get_ue:
     path:     /get-ue/{id}
-    defaults: { _controller: PrevisionnelBundle:Default:getUe }
+    defaults: { _controller: PrevisionnelBundle:Prevision:getUe }
 
 previsionnel_search_typecours:
     path:     /search-typecours
-    defaults: { _controller: PrevisionnelBundle:Default:searchTypecours }
+    defaults: { _controller: PrevisionnelBundle:Prevision:searchTypecours }
 
 previsionnel_get_typecours:
     path:     /get-typecours/{id}
-    defaults: { _controller: PrevisionnelBundle:Default:getTypecours }
+    defaults: { _controller: PrevisionnelBundle:Prevision:getTypecours }
 
 previsionnel_search_statut:
     path:     /search-statut
-    defaults: { _controller: PrevisionnelBundle:Default:searchStatut }
+    defaults: { _controller: PrevisionnelBundle:Prevision:searchStatut }
 
 previsionnel_get_statut:
     path:     /get-statut/{id}
-    defaults: { _controller: PrevisionnelBundle:Default:getStatut }
+    defaults: { _controller: PrevisionnelBundle:Prevision:getStatut }

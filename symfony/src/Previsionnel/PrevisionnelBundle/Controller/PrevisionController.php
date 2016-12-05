@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Previsionnel\PrevisionnelBundle\Forms\Prevision;
 use Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees;
 
-class DefaultController extends Controller
+class PrevisionController extends Controller
 {
 	public function indexAction(Request $request)
 	{
@@ -131,7 +131,7 @@ class DefaultController extends Controller
 			}
 		}
 
-		return $this->render("PrevisionnelBundle:Default:index.html.twig", array(
+		return $this->render("PrevisionnelBundle:Prevision:prevision.html.twig", array(
 			"form" => $form->createView(),
 		));
 	}
@@ -163,7 +163,7 @@ class DefaultController extends Controller
 				->getResult();
 		}
 
-		return $this->render('PrevisionnelBundle:Default:autocomplete-professeur.html.twig', ['results' => $results]);
+		return $this->render('PrevisionnelBundle:Prevision:autocomplete-professeur.html.twig', ['results' => $results]);
 	}
 
 	// Autocomplete : Nom du professeur
@@ -188,7 +188,7 @@ class DefaultController extends Controller
 			->getQuery()
 			->getResult();
 
-		return $this->render('PrevisionnelBundle:Default:autocomplete-ue.html.twig', ['results' => $results]);
+		return $this->render('PrevisionnelBundle:Prevision:autocomplete-ue.html.twig', ['results' => $results]);
 	}
 
 	// Autocomplete : Nom de l'UE
@@ -213,7 +213,7 @@ class DefaultController extends Controller
 			->getQuery()
 			->getResult();
 
-		return $this->render('PrevisionnelBundle:Default:autocomplete-typecours.html.twig', ['results' => $results]);
+		return $this->render('PrevisionnelBundle:Prevision:autocomplete-typecours.html.twig', ['results' => $results]);
 	}
 
 	// Autocomplete : Nom du type de cours
@@ -238,7 +238,7 @@ class DefaultController extends Controller
 			->getQuery()
 			->getResult();
 
-		return $this->render('PrevisionnelBundle:Default:autocomplete-statut.html.twig', ['results' => $results]);
+		return $this->render('PrevisionnelBundle:Prevision:autocomplete-statut.html.twig', ['results' => $results]);
 	}
 
 	// Autocomplete : Nom du statut
