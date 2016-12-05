@@ -1,0 +1,38 @@
+{% block stylesheets %}
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+{% endblock %}
+
+<h1>Module de prévision</h1>
+
+<section>
+
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+
+</section>
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+<script type="text/javascript">
+
+	$('#prevision_idutilisateur').autocompleter({
+		url_list: '/symfony/web/app_dev.php/search-utilisateurs',
+		url_get: '/symfony/web/app_dev.php/get-utilisateurs/'
+	});
+	
+	$('#prevision_ue').autocompleter({
+		url_list: '/symfony/web/app_dev.php/search-ue',
+		url_get: '/symfony/web/app_dev.php/get-ue/'
+	});
+	
+	$('#prevision_typecours').autocompleter({
+		url_list: '/symfony/web/app_dev.php/search-typecours',
+		url_get: '/symfony/web/app_dev.php/get-typecours/'
+	});
+
+</script>
+{% endblock %}

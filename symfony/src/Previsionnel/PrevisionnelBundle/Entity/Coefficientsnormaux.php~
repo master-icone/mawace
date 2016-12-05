@@ -1,0 +1,54 @@
+<?php
+
+namespace Previsionnel\PrevisionnelBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Coefficientsnormaux
+ *
+ * @ORM\Table(name="coefficientsnormaux")
+ * @ORM\Entity
+ */
+class Coefficientsnormaux
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idTypeCours", type="integer", nullable=false)
+     */
+    private $idtypecours;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="coeff", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $coeff;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idStatut", type="integer", nullable=false)
+     */
+    private $idstatut;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annee", type="string", length=9, nullable=false)
+     */
+    private $annee;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
