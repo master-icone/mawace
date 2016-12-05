@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
 			new Previsionnel\PrevisionnelBundle\PrevisionnelBundle(),
 			new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
+			new Ob\HighchartsBundle\ObHighchartsBundle(),
+            new MAWACE\PageProfBundle\MAWACEPageProfBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
