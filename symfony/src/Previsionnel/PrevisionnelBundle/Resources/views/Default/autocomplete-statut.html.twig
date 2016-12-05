@@ -1,4 +1,0 @@
-[{% for statut in results -%}
-{{ {id: statut.id, label: statut.nom, value: statut.nom}|json_encode|raw }}
-{%- if not loop.last %},{% endif -%}
-{%- endfor %}]

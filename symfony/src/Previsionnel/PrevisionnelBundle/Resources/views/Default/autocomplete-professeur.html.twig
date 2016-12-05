@@ -1,4 +1,0 @@
-[{% for utilisateur in results -%}
-{{ {id: utilisateur.id, label: utilisateur.nom ~ " " ~ utilisateur.prenom, value: utilisateur.nom ~ " " ~ utilisateur.prenom}|json_encode|raw }}
-{%- if not loop.last %},{% endif -%}
-{%- endfor %}]
