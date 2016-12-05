@@ -1,0 +1,40 @@
+<?php
+
+namespace Previsionnel\PrevisionnelBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Interdictionaffectation
+ *
+ * @ORM\Table(name="interdictionaffectation")
+ * @ORM\Entity
+ */
+class Interdictionaffectation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idTypeCours", type="integer", nullable=false)
+     */
+    private $idtypecours;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idStatut", type="integer", nullable=false)
+     */
+    private $idstatut;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

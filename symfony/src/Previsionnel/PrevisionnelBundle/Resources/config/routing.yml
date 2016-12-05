@@ -1,0 +1,35 @@
+previsionnel_homepage:
+    path:     /
+    defaults: { _controller: PrevisionnelBundle:Default:index }
+
+previsionnel_search_utilisateurs:
+    path:     /search-utilisateurs
+    defaults: { _controller: PrevisionnelBundle:Default:searchUtilisateurs }
+
+previsionnel_get_utilisateurs:
+    path:     /get-utilisateurs/{id}
+    defaults: { _controller: PrevisionnelBundle:Default:getUtilisateurs }
+
+previsionnel_search_ue:
+    path:     /search-ue
+    defaults: { _controller: PrevisionnelBundle:Default:searchUe }
+
+previsionnel_get_ue:
+    path:     /get-ue/{id}
+    defaults: { _controller: PrevisionnelBundle:Default:getUe }
+
+previsionnel_search_typecours:
+    path:     /search-typecours
+    defaults: { _controller: PrevisionnelBundle:Default:searchTypecours }
+
+previsionnel_get_typecours:
+    path:     /get-typecours/{id}
+    defaults: { _controller: PrevisionnelBundle:Default:getTypecours }
+
+previsionnel_search_statut:
+    path:     /search-statut
+    defaults: { _controller: PrevisionnelBundle:Default:searchStatut }
+
+previsionnel_get_statut:
+    path:     /get-statut/{id}
+    defaults: { _controller: PrevisionnelBundle:Default:getStatut }

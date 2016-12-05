@@ -1,0 +1,68 @@
+<?php
+
+namespace Previsionnel\PrevisionnelBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tickets
+ *
+ * @ORM\Table(name="tickets")
+ * @ORM\Entity
+ */
+class Tickets
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motif", type="string", length=255, nullable=false)
+     */
+    private $motif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="message", type="text", length=65535, nullable=false)
+     */
+    private $message;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idUE", type="integer", nullable=false)
+     */
+    private $idue;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date", nullable=false)
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat", type="string", length=1, nullable=false)
+     */
+    private $etat;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idExpediteur", type="integer", nullable=false)
+     */
+    private $idexpediteur;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
