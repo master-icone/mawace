@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ResumeController extends Controller
 {
-	public function viewAction(Request $request)
+	public function viewAction($id)
 	{
 		$sommeCM = 0;
 		$sommeTD = 0;
@@ -22,7 +22,7 @@ class ResumeController extends Controller
 		$AUTREcoeff = 0;
 		$HorsService = 0;
 		
-		$idUser = $request->query->get('id');
+		$idUser = $id;
 		$manager = $this->getDoctrine()->getManager();
 		// Les différents repositories
 		$repositoryUser = $manager->getRepository('MAWACEPageProfBundle:utilisateurs');
