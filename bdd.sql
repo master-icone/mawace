@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 05 Décembre 2016 à 12:52
+-- Généré le :  Mar 06 Décembre 2016 à 14:23
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -30,6 +30,7 @@ CREATE TABLE `archiveutilisateurs` (
   `id` int(11) NOT NULL,
   `idDepartement` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
+  `idStatut` text NOT NULL,
   `annee` varchar(9) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -37,8 +38,8 @@ CREATE TABLE `archiveutilisateurs` (
 -- Contenu de la table `archiveutilisateurs`
 --
 
-INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `annee`) VALUES
-(1, 1, 1, '2016-2017');
+INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `idStatut`, `annee`) VALUES
+(1, 1, 1, '1', '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -144,7 +145,7 @@ CREATE TABLE `heuresaffectees` (
 --
 
 INSERT INTO `heuresaffectees` (`id`, `idUtilisateur`, `idCours`, `idStatut`, `nbHeures`, `annee`) VALUES
-(10, 1, 1, 1, 1.5, '2016-2017');
+(12, 1, 1, 1, 1.5, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -211,9 +212,9 @@ CREATE TABLE `typecours` (
 --
 
 INSERT INTO `typecours` (`id`, `nom`, `methodeEnseignement`, `description`) VALUES
-(1, 'CM', 'normale', 'Cours magistral'),
-(2, 'TD', 'normale', 'Travaux dirigés'),
-(3, 'TP', 'normale', 'Travaux pratiques');
+(1, 'CM', 'normal', 'Cours magistral'),
+(2, 'TD', 'normal', 'Travaux dirigés'),
+(3, 'TP', 'normal', 'Travaux pratiques');
 
 -- --------------------------------------------------------
 
@@ -364,7 +365,7 @@ ALTER TABLE `departements`
 -- AUTO_INCREMENT pour la table `heuresaffectees`
 --
 ALTER TABLE `heuresaffectees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `interdictionaffectation`
 --
