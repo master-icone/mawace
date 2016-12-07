@@ -1,1 +1,0 @@
-Search.setIndex({docnames:["index"],envversion:50,filenames:["index.md"],objects:{},objnames:{},objtypes:{},terms:{index:0,modul:0,pag:0,recherch:0},titles:["Welcome to MAWACE : Projet Pr\u00e9visionnel&#8217;s documentation!"],titleterms:{"pr\u00e9visionnel":0,and:0,document:0,indic:0,mawace:0,projet:0,tabl:0,welcom:0}})
