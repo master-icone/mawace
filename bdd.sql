@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 06 Décembre 2016 à 14:23
+-- Généré le :  Mer 07 Décembre 2016 à 12:38
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -30,7 +30,8 @@ CREATE TABLE `archiveutilisateurs` (
   `id` int(11) NOT NULL,
   `idDepartement` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
-  `idStatut` text NOT NULL,
+  `idStatut` int(11) NOT NULL,
+  `idRole` text NOT NULL,
   `annee` varchar(9) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -38,8 +39,8 @@ CREATE TABLE `archiveutilisateurs` (
 -- Contenu de la table `archiveutilisateurs`
 --
 
-INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `idStatut`, `annee`) VALUES
-(1, 1, 1, '1', '2016-2017');
+INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `idStatut`, `idRole`, `annee`) VALUES
+(1, 1, 1, 1, '1', '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,6 @@ CREATE TABLE `heuresaffectees` (
   `id` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
   `idCours` int(11) NOT NULL,
-  `idStatut` int(11) NOT NULL,
   `nbHeures` double NOT NULL,
   `annee` varchar(9) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -144,8 +144,8 @@ CREATE TABLE `heuresaffectees` (
 -- Contenu de la table `heuresaffectees`
 --
 
-INSERT INTO `heuresaffectees` (`id`, `idUtilisateur`, `idCours`, `idStatut`, `nbHeures`, `annee`) VALUES
-(12, 1, 1, 1, 1.5, '2016-2017');
+INSERT INTO `heuresaffectees` (`id`, `idUtilisateur`, `idCours`, `nbHeures`, `annee`) VALUES
+(12, 1, 1, 1.5, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -157,6 +157,17 @@ CREATE TABLE `interdictionaffectation` (
   `id` int(11) NOT NULL,
   `idTypeCours` int(11) NOT NULL,
   `idStatut` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -303,6 +314,12 @@ ALTER TABLE `interdictionaffectation`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `statut`
 --
 ALTER TABLE `statut`
@@ -370,6 +387,11 @@ ALTER TABLE `heuresaffectees`
 -- AUTO_INCREMENT pour la table `interdictionaffectation`
 --
 ALTER TABLE `interdictionaffectation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `roles`
+--
+ALTER TABLE `roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `statut`
