@@ -35,12 +35,6 @@ class heuresaffectees
      */
     private $idCours;
 	
-	/**
-	 * @var int
-	 *
-	 * @ORM\Column(name="idStatut", type="integer")
-	 */
-	private $idStatut;
     /**
      * @var string
      *
@@ -112,30 +106,6 @@ class heuresaffectees
     public function getIdCours()
     {
         return $this->idCours;
-    }
-
-	/**
-     * Set idStatut
-     *
-     * @param integer $idStatut
-     *
-     * @return heuresaffectees
-     */
-    public function setIdStatut($idStatut)
-    {
-        $this->idStatut = $idStatut;
-
-        return $this;
-    }
-
-    /**
-     * Get idStatut
-     *
-     * @return int
-     */
-    public function getIdStatut()
-    {
-        return $this->idStatut;
     }
 	
     /**

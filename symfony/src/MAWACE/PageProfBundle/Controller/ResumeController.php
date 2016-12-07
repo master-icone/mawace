@@ -19,22 +19,33 @@ class ResumeController extends Controller
 		$CMcoeff = 0;
 		$TDcoeff = 0;
 		$TPcoeff = 0;
+		$total = 0; //Total des heures sans coefficient
 		$AUTREcoeff = 0;
 		$HorsService = 0;
 		
+		
+		$annee = "2015-2016";
+		
 		$idUser = $id;
+		
 		$manager = $this->getDoctrine()->getManager();
 		// Les différents repositories
 		$repositoryUser = $manager->getRepository('MAWACEPageProfBundle:utilisateurs');
+		$repositoryArchiveUser = $manager->getRepository('MAWACEPageProfBundle:archiveutilisateurs');
 		$repositoryHeuresAffectees = $manager->getRepository('MAWACEPageProfBundle:heuresaffectees');
 		$repositoryCours = $manager->getRepository('MAWACEPageProfBundle:cours');
 		$repositoryTypeCours = $manager->getRepository('MAWACEPageProfBundle:typecours');
 		$repositoryUE = $manager->getRepository('MAWACEPageProfBundle:ue');
 		$repositoryCoeff = $manager->getRepository('MAWACEPageProfBundle:coefficientsnormaux');
+		$repositoryCoeffSupp = $manager->getRepository('MAWACEPageProfBundle:coefficientssupplementaires');
 		
 		// On récupère l'entité correspondante au idUser
 		$user = $repositoryUser->find($idUser);
-		$heures = $repositoryHeuresAffectees->findByidUtilisateur($idUser);//tableau avec les heures CM, TD, TP dans les UEs de l'utilisateurs
+		
+		$statut = $repositoryArchiveUser->findOneBy(array('idUtilisateur'=>$idUser, 'annee' => $annee));
+		$idStatut = $statut->getIdStatut();
+		
+		$heures = $repositoryHeuresAffectees->findBy(array('idUtilisateur'=>$idUser, 'annee' => $annee));//tableau avec les heures CM, TD, TP dans les UEs de l'utilisateurs
 		foreach($heures as $heure)
 		{
 			$Cours = $repositoryCours->findByid($heure->getIdCours());// tableau des cours (type(cm, td, tp) et UE correspondante)
@@ -45,28 +56,33 @@ class ResumeController extends Controller
 				$type = $repositoryTypeCours->findOneByid($typeId); //Récupération du type
 				$typenom = $type->getNom(); //Récupération du nom du type (CM, TD, TP...)
 				
+				
+				if($total > 192)
+				{
+					$coeff[$typenom] = $repositoryCoeffSupp->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
+				}else{
+					$coeff[$typenom] = $repositoryCoeff->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $idStatut));
+				}
+				$total = $total+$heure->getNbHeures();
+				
 				if($typenom == "CM"){ //Si c'est un CM								
-					$sommeCM = $sommeCM+(float)$heure->getNbHeures(); //Ajout à la somme des heures CM
-					$coeff['CM']= $repositoryCoeff->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $heure->getIdStatut())); //Récupération du coefficient correspondant en fonction du statut
-					$CMcoeff = $CMcoeff+(float)$heure->getNbHeures()*(float)$coeff['CM']->getCoeff(); //Calcul CM avec coefficient
+					$sommeCM = $sommeCM+(float)$heure->getNbHeures(); //Ajout à la somme des heures CM	
+					$CMcoeff = $CMcoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff(); //Calcul CM avec coefficient
 					$u[$cours->getIdUE()]["CM"] = $heure->getNbHeures(); //Stockage des heures de CM à l'UE correspondante
 				}
 				if($typenom == "TD"){ //Si c'est un TD
 					$sommeTD = $sommeTD+(float)$heure->getNbHeures();
-					$coeff['TD']= $repositoryCoeff->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $heure->getIdStatut()));
-					$TDcoeff = $TDcoeff+(float)$heure->getNbHeures()*(float)$coeff['TD']->getCoeff();
+					$TDcoeff = $TDcoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff();
 					$u[$cours->getIdUE()]["TD"]= $heure->getNbHeures();
 				}
 				if($typenom == "TP"){ //SI c'est un TP
 					$sommeTP = $sommeTP+(float)$heure->getNbHeures();
-					$coeff['TP']= $repositoryCoeff->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $heure->getIdStatut()));
-					$TPcoeff = $TPcoeff+(float)$heure->getNbHeures()*(float)$coeff['TP']->getCoeff();
+					$TPcoeff = $TPcoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff();
 					$u[$cours->getIdUE()]["TP"] = $heure->getNbHeures();
 				}
 				
 				if($typenom != "CM" && $typenom != "TD" && $typenom != "TP"){
 					$sommeAutre = $sommeAutre+(float)$heure->getNbHeures();
-					$coeff[$typenom] = $repositoryCoeff->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $heure->getIdStatut()));
 					$Autrecoeff = $Autrecoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff();
 					$u[$cours->getIdUE()]["AUTRE"] = $heure->getNbHeures();
 				}
@@ -74,8 +90,7 @@ class ResumeController extends Controller
 			}
 			
 		}
-		
-		$total = $sommeCM+$sommeTD+$sommeTP+$sommeAutre; //Total des heures sans coefficient
+
 		if($total > 192) {$HorsService = $total - 192;}
 		$totalCoeff = $CMcoeff+$TDcoeff+$TPcoeff+$AUTREcoeff; //Total des heures avec coeficient
 
