@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # MAWACE : Projet Prévisionnel documentation build configuration file, created by
-# sphinx-quickstart on Tue Dec 06 15:19:00 2016.
+# sphinx-quickstart on Wed Dec 07 15:22:02 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -16,12 +16,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-
-import os
-import sys
-import shlex
-
-#sys.path.insert(0, os.path.abspath('.'))
+# import os
+# import sys
+# sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- General configuration ------------------------------------------------
@@ -33,10 +30,10 @@ import shlex
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc",  "sphinx.ext.coverage"]
+extensions = ['sphinx.ext.autodoc']
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['templates']
+templates_path = ['ntemplates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -49,15 +46,15 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'MAWACE : Projet Prévisionnel'
-copyright = u'2016, PLASSERAUD-DESGRANGES Aymeric'
-author = u'PLASSERAUD-DESGRANGES Aymeric'
+copyright = u'2016, BRAUD Maxime, DELEUZE Antony, GRAFF Étienne, GOY Cyril, PLASSERAUD-DESGRANGES Aymeric, TOUTI Widad'
+author = u'BRAUD Maxime, DELEUZE Antony, GRAFF Étienne, GOY Cyril, PLASSERAUD-DESGRANGES Aymeric, TOUTI Widad'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = u'1'
+version = u'1.0'
 # The full version, including alpha/beta/rc tags.
 release = u'1.0'
 
@@ -71,7 +68,7 @@ language = 'fr'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['build']
+exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -85,7 +82,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -96,7 +93,7 @@ html_theme = 'alabaster'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['static']
+html_static_path = ['nstatic']
 
 
 # -- Options for HTMLHelp output ------------------------------------------
@@ -130,7 +127,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'MAWACEProjetPrvisionnel.tex', u'MAWACE : Projet Prévisionnel Documentation',
-     u'PLASSERAUD-DESGRANGES Aymeric', 'manual'),
+     u'BRAUD Maxime, DELEUZE Antony, GRAFF Étienne, GOY Cyril, PLASSERAUD-DESGRANGES Aymeric, TOUTI Widad', 'manual'),
 ]
 
 
@@ -155,54 +152,5 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-# If true, do not generate a @detailmenu in the "Top" node's menu.
-#texinfo_no_detailmenu = False
-locale_dirs = ['docs/']
-
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-
-
-if on_rtd:
-    # Override default css to get a larger width for ReadTheDoc build
-    html_context = {
-        'css_files': [
-            'https://media.readthedocs.org/css/sphinx_rtd_theme.css',
-            'https://media.readthedocs.org/css/readthedocs-doc-embed.css',
-            '_static/css/my_theme.css',
-        ],
-    }
-
-# Set up PHP syntax highlights
-
-from sphinx.highlighting import lexers
-from pygments.lexers.web import PhpLexer
-lexers["php"] = PhpLexer(startinline=True, linenos=1)
-lexers["php-annotations"] = PhpLexer(startinline=True, linenos=1)
-primary_domain = "php"
-highlight_language = "php"
-
-
-
-# -- Options for Epub output ----------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-epub_author = author
-epub_publisher = author
-epub_copyright = copyright
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
 
 
