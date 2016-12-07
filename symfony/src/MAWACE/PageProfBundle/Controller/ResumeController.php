@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ResumeController extends Controller
 {
-	public function viewAction($id)
+	public function viewAction($id, $annee)
 	{
 		$sommeCM = 0;
 		$sommeTD = 0;
@@ -22,9 +22,6 @@ class ResumeController extends Controller
 		$total = 0; //Total des heures sans coefficient
 		$AUTREcoeff = 0;
 		$HorsService = 0;
-		
-		
-		$annee = "2015-2016";
 		
 		$idUser = $id;
 		
