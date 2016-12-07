@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 07 Décembre 2016 à 12:38
+-- Généré le :  Mer 07 Décembre 2016 à 14:28
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -106,7 +106,8 @@ CREATE TABLE `cours` (
 --
 
 INSERT INTO `cours` (`id`, `idUE`, `idTypeCours`, `annee`) VALUES
-(1, 1, 1, '2016-2017');
+(1, 1, 1, '2016-2017'),
+(2, 1, 2, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -145,7 +146,7 @@ CREATE TABLE `heuresaffectees` (
 --
 
 INSERT INTO `heuresaffectees` (`id`, `idUtilisateur`, `idCours`, `nbHeures`, `annee`) VALUES
-(12, 1, 1, 1.5, '2016-2017');
+(14, 1, 1, 1.5, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -158,6 +159,33 @@ CREATE TABLE `interdictionaffectation` (
   `idTypeCours` int(11) NOT NULL,
   `idStatut` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `interdictionaffectation`
+--
+
+INSERT INTO `interdictionaffectation` (`id`, `idTypeCours`, `idStatut`) VALUES
+(1, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `limitenbcours`
+--
+
+CREATE TABLE `limitenbcours` (
+  `id` int(11) NOT NULL,
+  `idStatut` int(11) NOT NULL,
+  `idTypeCours` int(11) NOT NULL,
+  `nbHeures` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `limitenbcours`
+--
+
+INSERT INTO `limitenbcours` (`id`, `idStatut`, `idTypeCours`, `nbHeures`) VALUES
+(1, 1, 3, 10);
 
 -- --------------------------------------------------------
 
@@ -314,6 +342,12 @@ ALTER TABLE `interdictionaffectation`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `limitenbcours`
+--
+ALTER TABLE `limitenbcours`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `roles`
 --
 ALTER TABLE `roles`
@@ -372,7 +406,7 @@ ALTER TABLE `coefficientssupplementaires`
 -- AUTO_INCREMENT pour la table `cours`
 --
 ALTER TABLE `cours`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `departements`
 --
@@ -382,12 +416,17 @@ ALTER TABLE `departements`
 -- AUTO_INCREMENT pour la table `heuresaffectees`
 --
 ALTER TABLE `heuresaffectees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pour la table `interdictionaffectation`
 --
 ALTER TABLE `interdictionaffectation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `limitenbcours`
+--
+ALTER TABLE `limitenbcours`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `roles`
 --
