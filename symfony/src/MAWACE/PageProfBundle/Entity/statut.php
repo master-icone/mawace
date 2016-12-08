@@ -29,11 +29,11 @@ class statut
     private $nom;
 
     /**
-     * @var int
+     * @var decimal
      *
-     * @ORM\Column(name="decharge", type="integer")
+     * @ORM\Column(name="potentielBrut", type="decimal")
      */
-    private $decharge;
+    private $potentielBrut;
 
 
     /**
@@ -71,27 +71,27 @@ class statut
     }
 
     /**
-     * Set decharge
+     * Set potentielBrut
      *
-     * @param integer $decharge
+     * @param decimal $potentielBrut
      *
      * @return statut
      */
-    public function setDecharge($decharge)
+    public function setPotentielBrut($potentielbrut)
     {
-        $this->decharge = $decharge;
+        $this->potentielBrut = $potentielbrut;
 
         return $this;
     }
 
     /**
-     * Get decharge
+     * Get potentielBrut
      *
-     * @return int
+     * @return decimal
      */
-    public function getDecharge()
+    public function getPotentielBrut()
     {
-        return $this->decharge;
+        return $this->potentielBrut;
     }
 }
 

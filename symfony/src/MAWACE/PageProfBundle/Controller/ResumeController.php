@@ -28,6 +28,7 @@ class ResumeController extends Controller
 		$manager = $this->getDoctrine()->getManager();
 		// Les différents repositories
 		$repositoryUser = $manager->getRepository('MAWACEPageProfBundle:utilisateurs');
+		$repositoryStatut = $manager->getRepository('MAWACEPageProfBundle:statut');
 		$repositoryArchiveUser = $manager->getRepository('MAWACEPageProfBundle:archiveutilisateurs');
 		$repositoryHeuresAffectees = $manager->getRepository('MAWACEPageProfBundle:heuresaffectees');
 		$repositoryCours = $manager->getRepository('MAWACEPageProfBundle:cours');
@@ -41,8 +42,13 @@ class ResumeController extends Controller
 		
 		$statut = $repositoryArchiveUser->findOneBy(array('idUtilisateur'=>$idUser, 'annee' => $annee));
 		$idStatut = $statut->getIdStatut();
-		
+		$potentielBrut = $repositoryStatut->find($idStatut);
+		$valeurPB = $potentielBrut->getPotentielBrut();
+		$decharge = $repositoryArchiveUser->findOneByidUtilisateur($idUser);
+		$valeurDecharge = $decharge->getDecharge();
+		$valeurPN = $valeurPB-$valeurDecharge;
 		$heures = $repositoryHeuresAffectees->findBy(array('idUtilisateur'=>$idUser, 'annee' => $annee));//tableau avec les heures CM, TD, TP dans les UEs de l'utilisateurs
+		
 		foreach($heures as $heure)
 		{
 			$Cours = $repositoryCours->findByid($heure->getIdCours());// tableau des cours (type(cm, td, tp) et UE correspondante)
@@ -54,7 +60,7 @@ class ResumeController extends Controller
 				$typenom = $type->getNom(); //Récupération du nom du type (CM, TD, TP...)
 				
 				
-				if($total > 192)
+				if($total > $valeurPN)
 				{
 					$coeff[$typenom] = $repositoryCoeffSupp->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
 				}else{
@@ -88,8 +94,8 @@ class ResumeController extends Controller
 			
 		}
 
-		if($total > 192) {$HorsService = $total - 192;}
-		$totalCoeff = $CMcoeff+$TDcoeff+$TPcoeff+$AUTREcoeff; //Total des heures avec coeficient
+		if($total > $valeurPN) {$HorsService = $total - $valeurPN;}
+		$totalCoeff = $CMcoeff+$TDcoeff+$TPcoeff+$AUTREcoeff; //Total des heures avec coefficient
 
 		// Création du graphique
         $sellsHistory = array(
@@ -99,7 +105,8 @@ class ResumeController extends Controller
             "data" => array(
                 array('CM', $sommeCM),
                 array('TD', $sommeTD),
-                array('TP', $sommeTP)
+                array('TP', $sommeTP),
+                array('Autre', $sommeAutre)
                     ),
 			"size" => 200,
 			"showInLegend" => true,
