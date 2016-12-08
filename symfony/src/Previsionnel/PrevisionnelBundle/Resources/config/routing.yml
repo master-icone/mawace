@@ -1,35 +1,27 @@
 previsionnel_homepage:
-    path:     /
+    path:     /prevision
     defaults: { _controller: PrevisionnelBundle:Prevision:index }
 
 previsionnel_search_utilisateurs:
-    path:     /search-utilisateurs
+    path:     /prevision/search-utilisateurs
     defaults: { _controller: PrevisionnelBundle:Prevision:searchUtilisateurs }
 
 previsionnel_get_utilisateurs:
-    path:     /get-utilisateurs/{id}
+    path:     /prevision/get-utilisateurs/{id}
     defaults: { _controller: PrevisionnelBundle:Prevision:getUtilisateurs }
 
 previsionnel_search_ue:
-    path:     /search-ue
+    path:     /prevision/search-ue
     defaults: { _controller: PrevisionnelBundle:Prevision:searchUe }
 
 previsionnel_get_ue:
-    path:     /get-ue/{id}
+    path:     /prevision/get-ue/{id}
     defaults: { _controller: PrevisionnelBundle:Prevision:getUe }
 
 previsionnel_search_typecours:
-    path:     /search-typecours
+    path:     /prevision/search-typecours
     defaults: { _controller: PrevisionnelBundle:Prevision:searchTypecours }
 
 previsionnel_get_typecours:
-    path:     /get-typecours/{id}
+    path:     /prevision/get-typecours/{id}
     defaults: { _controller: PrevisionnelBundle:Prevision:getTypecours }
-
-previsionnel_search_statut:
-    path:     /search-statut
-    defaults: { _controller: PrevisionnelBundle:Prevision:searchStatut }
-
-previsionnel_get_statut:
-    path:     /get-statut/{id}
-    defaults: { _controller: PrevisionnelBundle:Prevision:getStatut }

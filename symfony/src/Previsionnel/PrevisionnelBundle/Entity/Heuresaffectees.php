@@ -27,13 +27,6 @@ class Heuresaffectees
     private $idcours;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idStatut", type="integer", nullable=false)
-     */
-    private $idstatut;
-
-    /**
      * @var float
      *
      * @ORM\Column(name="nbHeures", type="float", precision=10, scale=0, nullable=false)
@@ -104,30 +97,6 @@ class Heuresaffectees
     public function getIdcours()
     {
         return $this->idcours;
-    }
-
-    /**
-     * Set idstatut
-     *
-     * @param integer $idstatut
-     *
-     * @return Heuresaffectees
-     */
-    public function setIdstatut($idstatut)
-    {
-        $this->idstatut = $idstatut;
-
-        return $this;
-    }
-
-    /**
-     * Get idstatut
-     *
-     * @return integer
-     */
-    public function getIdstatut()
-    {
-        return $this->idstatut;
     }
 
     /**

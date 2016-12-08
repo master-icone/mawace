@@ -14,11 +14,6 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="idstatut" type="integer" column="idStatut" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="nbheures" type="float" column="nbHeures" precision="10" scale="0" nullable="false"/>
     <field name="annee" type="string" column="annee" length="9" nullable="false">
       <options>

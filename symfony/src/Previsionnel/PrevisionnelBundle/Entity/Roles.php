@@ -5,12 +5,12 @@ namespace Previsionnel\PrevisionnelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Statut
+ * Roles
  *
- * @ORM\Table(name="statut")
+ * @ORM\Table(name="roles")
  * @ORM\Entity
  */
-class Statut
+class Roles
 {
     /**
      * @var string
@@ -18,13 +18,6 @@ class Statut
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="potentielBrut", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $potentielbrut;
 
     /**
      * @var integer
@@ -42,7 +35,7 @@ class Statut
      *
      * @param string $nom
      *
-     * @return Statut
+     * @return Roles
      */
     public function setNom($nom)
     {
@@ -59,30 +52,6 @@ class Statut
     public function getNom()
     {
         return $this->nom;
-    }
-
-    /**
-     * Set potentielbrut
-     *
-     * @param float $potentielbrut
-     *
-     * @return Statut
-     */
-    public function setPotentielbrut($potentielbrut)
-    {
-        $this->potentielbrut = $potentielbrut;
-
-        return $this;
-    }
-
-    /**
-     * Get potentielbrut
-     *
-     * @return float
-     */
-    public function getPotentielbrut()
-    {
-        return $this->potentielbrut;
     }
 
     /**
