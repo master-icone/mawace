@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 07 Décembre 2016 à 14:28
+-- Généré le :  Jeu 08 Décembre 2016 à 08:06
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -32,6 +32,7 @@ CREATE TABLE `archiveutilisateurs` (
   `idUtilisateur` int(11) NOT NULL,
   `idStatut` int(11) NOT NULL,
   `idRole` text NOT NULL,
+  `decharge` double NOT NULL,
   `annee` varchar(9) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -39,8 +40,8 @@ CREATE TABLE `archiveutilisateurs` (
 -- Contenu de la table `archiveutilisateurs`
 --
 
-INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `idStatut`, `idRole`, `annee`) VALUES
-(1, 1, 1, 1, '1', '2016-2017');
+INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `idStatut`, `idRole`, `decharge`, `annee`) VALUES
+(1, 1, 1, 1, '1', 0, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,8 @@ CREATE TABLE `cours` (
 
 INSERT INTO `cours` (`id`, `idUE`, `idTypeCours`, `annee`) VALUES
 (1, 1, 1, '2016-2017'),
-(2, 1, 2, '2016-2017');
+(2, 1, 2, '2016-2017'),
+(3, 1, 3, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -146,7 +148,8 @@ CREATE TABLE `heuresaffectees` (
 --
 
 INSERT INTO `heuresaffectees` (`id`, `idUtilisateur`, `idCours`, `nbHeures`, `annee`) VALUES
-(14, 1, 1, 1.5, '2016-2017');
+(17, 1, 1, 12, '2016-2017'),
+(26, 1, 3, 10, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -207,15 +210,15 @@ CREATE TABLE `roles` (
 CREATE TABLE `statut` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `decharge` int(11) NOT NULL
+  `potentielBrut` double NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `statut`
 --
 
-INSERT INTO `statut` (`id`, `nom`, `decharge`) VALUES
-(1, 'Enseignant-chercheur', 0);
+INSERT INTO `statut` (`id`, `nom`, `potentielBrut`) VALUES
+(1, 'MCF', 192);
 
 -- --------------------------------------------------------
 
@@ -406,7 +409,7 @@ ALTER TABLE `coefficientssupplementaires`
 -- AUTO_INCREMENT pour la table `cours`
 --
 ALTER TABLE `cours`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `departements`
 --
@@ -416,7 +419,7 @@ ALTER TABLE `departements`
 -- AUTO_INCREMENT pour la table `heuresaffectees`
 --
 ALTER TABLE `heuresaffectees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT pour la table `interdictionaffectation`
 --
