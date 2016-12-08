@@ -27,6 +27,27 @@ class Archiveutilisateurs
     private $idutilisateur;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="idStatut", type="integer", nullable=false)
+     */
+    private $idstatut;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="idRole", type="text", length=65535, nullable=false)
+     */
+    private $idrole;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="decharge", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $decharge;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="annee", type="string", length=9, nullable=false)
@@ -90,6 +111,78 @@ class Archiveutilisateurs
     public function getIdutilisateur()
     {
         return $this->idutilisateur;
+    }
+
+    /**
+     * Set idstatut
+     *
+     * @param integer $idstatut
+     *
+     * @return Archiveutilisateurs
+     */
+    public function setIdstatut($idstatut)
+    {
+        $this->idstatut = $idstatut;
+
+        return $this;
+    }
+
+    /**
+     * Get idstatut
+     *
+     * @return integer
+     */
+    public function getIdstatut()
+    {
+        return $this->idstatut;
+    }
+
+    /**
+     * Set idrole
+     *
+     * @param string $idrole
+     *
+     * @return Archiveutilisateurs
+     */
+    public function setIdrole($idrole)
+    {
+        $this->idrole = $idrole;
+
+        return $this;
+    }
+
+    /**
+     * Get idrole
+     *
+     * @return string
+     */
+    public function getIdrole()
+    {
+        return $this->idrole;
+    }
+
+    /**
+     * Set decharge
+     *
+     * @param float $decharge
+     *
+     * @return Archiveutilisateurs
+     */
+    public function setDecharge($decharge)
+    {
+        $this->decharge = $decharge;
+
+        return $this;
+    }
+
+    /**
+     * Get decharge
+     *
+     * @return float
+     */
+    public function getDecharge()
+    {
+        return $this->decharge;
     }
 
     /**

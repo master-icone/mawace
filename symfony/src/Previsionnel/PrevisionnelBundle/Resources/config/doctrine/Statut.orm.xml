@@ -9,10 +9,6 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="decharge" type="integer" column="decharge" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
+    <field name="potentielbrut" type="float" column="potentielBrut" precision="10" scale="0" nullable="false"/>
   </entity>
 </doctrine-mapping>

@@ -2,10 +2,26 @@ previsionnel:
     resource: "@PrevisionnelBundle/Resources/config/routing.yml"
     prefix:   /
 
-mawace_page_professeur:
-    resource: "@MAWACEPageProfBundle/Resources/config/routing.yml"
+previsionnel_user:
+    resource: "@PrevisionnelUserBundle/Resources/config/routing.yml"
     prefix:   /
 
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+login:
+    path: /login
+    defaults:
+        _controller: PrevisionnelUserBundle:Security:login
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
+
+ma_route:
+    path: /ma_route
+    defaults:
+        _controller: PrevisionnelUserBundle:Default:index

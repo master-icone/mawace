@@ -28,25 +28,24 @@ class Prevision extends AbstractType
 				"class" => "PrevisionnelBundle:Typecours",
 				"label" => "Type de cours : ",
 				"mapped" => false,
-				"attr" => ["placeholder" => "Type"],
-			])
-			->add("idstatut", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
-				"class" => "PrevisionnelBundle:Statut",
-				"label" => "Statut : ",
-				"attr" => ["placeholder" => "Statut"],
+				"attr" => ["placeholder" => "Type de cours"],
 			])
 			->add("nbheures", NumberType::class, [
 				"label" => "Nombre d'heures : ",
-				"attr" => ["placeholder" => "Nb heures"],
+				"attr" => ["placeholder" => "Nombre d'heures"],
+				"data" => "0",
 			])
 			->add("ajouter", SubmitType::class, [
 				"label" => "Ajouter",
+                "attr" => ["class" => "btn btn-success pull-left"],
 			])
 			->add("modifier", SubmitType::class, [
-				"label" => "Modifier",
+                "label" => "Modifier",
+                "attr" => ["class" => "btn btn-warning pull-left"],
 			])
 			->add("supprimer", SubmitType::class, [
-				"label" => "Supprimer",
+                "label" => "Supprimer",
+                "attr" => ["class" => "btn btn-danger pull-left"],
 			])
 			;
 	}

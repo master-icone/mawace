@@ -5,12 +5,12 @@ namespace Previsionnel\PrevisionnelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Archivestatut
+ * Limitenbcours
  *
- * @ORM\Table(name="archivestatut")
+ * @ORM\Table(name="limitenbcours")
  * @ORM\Entity
  */
-class Archivestatut
+class Limitenbcours
 {
     /**
      * @var integer
@@ -22,16 +22,16 @@ class Archivestatut
     /**
      * @var integer
      *
-     * @ORM\Column(name="idUtilisateur", type="integer", nullable=false)
+     * @ORM\Column(name="idTypeCours", type="integer", nullable=false)
      */
-    private $idutilisateur;
+    private $idtypecours;
 
     /**
-     * @var string
+     * @var float
      *
-     * @ORM\Column(name="annee", type="string", length=9, nullable=false)
+     * @ORM\Column(name="nbHeures", type="float", precision=10, scale=0, nullable=false)
      */
-    private $annee;
+    private $nbheures;
 
     /**
      * @var integer
@@ -49,7 +49,7 @@ class Archivestatut
      *
      * @param integer $idstatut
      *
-     * @return Archivestatut
+     * @return Limitenbcours
      */
     public function setIdstatut($idstatut)
     {
@@ -69,51 +69,51 @@ class Archivestatut
     }
 
     /**
-     * Set idutilisateur
+     * Set idtypecours
      *
-     * @param integer $idutilisateur
+     * @param integer $idtypecours
      *
-     * @return Archivestatut
+     * @return Limitenbcours
      */
-    public function setIdutilisateur($idutilisateur)
+    public function setIdtypecours($idtypecours)
     {
-        $this->idutilisateur = $idutilisateur;
+        $this->idtypecours = $idtypecours;
 
         return $this;
     }
 
     /**
-     * Get idutilisateur
+     * Get idtypecours
      *
      * @return integer
      */
-    public function getIdutilisateur()
+    public function getIdtypecours()
     {
-        return $this->idutilisateur;
+        return $this->idtypecours;
     }
 
     /**
-     * Set annee
+     * Set nbheures
      *
-     * @param string $annee
+     * @param float $nbheures
      *
-     * @return Archivestatut
+     * @return Limitenbcours
      */
-    public function setAnnee($annee)
+    public function setNbheures($nbheures)
     {
-        $this->annee = $annee;
+        $this->nbheures = $nbheures;
 
         return $this;
     }
 
     /**
-     * Get annee
+     * Get nbheures
      *
-     * @return string
+     * @return float
      */
-    public function getAnnee()
+    public function getNbheures()
     {
-        return $this->annee;
+        return $this->nbheures;
     }
 
     /**

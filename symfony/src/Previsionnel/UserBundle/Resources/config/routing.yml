@@ -1,0 +1,4 @@
+ma_route:
+    path: /ma_route
+    defaults:
+        _controller: PrevisionnelUserBundle:Default:index

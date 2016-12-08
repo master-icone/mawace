@@ -32,7 +32,21 @@ class archiveutilisateurs
      * @ORM\Column(name="idStatut", type="integer", nullable=false)
      */
     private $idStatut;
+	
+	/**
+     * @var text
+     *
+     * @ORM\Column(name="idRole", type="text", nullable=false)
+     */
+    private $idRole;
 
+	/**
+     * @var decimal
+     *
+     * @ORM\Column(name="decharge", type="decimal", nullable=false)
+     */
+    private $decharge;
+	
     /**
      * @var string
      *
@@ -121,6 +135,54 @@ class archiveutilisateurs
     public function getIdStatut()
     {
         return $this->idStatut;
+    }
+	
+	/**
+     * Set idrole
+     *
+     * @param text $idrole
+     *
+     * @return archiveutilisateurs
+     */
+    public function setIdRole($idrole)
+    {
+        $this->idRole = $idrole;
+
+        return $this;
+    }
+
+    /**
+     * Get idrole
+     *
+     * @return text
+     */
+    public function getIdRole()
+    {
+        return $this->idRole;
+    }
+	
+	/**
+     * Set decharge
+     *
+     * @param decimal $decharge
+     *
+     * @return archiveutilisateurs
+     */
+    public function setDecharge($decharge)
+    {
+        $this->decharge = $decharge;
+
+        return $this;
+    }
+
+    /**
+     * Get decharge
+     *
+     * @return decimal
+     */
+    public function getDecharge()
+    {
+        return $this->decharge;
     }
 
     /**

@@ -20,11 +20,11 @@ class Statut
     private $nom;
 
     /**
-     * @var integer
+     * @var float
      *
-     * @ORM\Column(name="decharge", type="integer", nullable=false)
+     * @ORM\Column(name="potentielBrut", type="float", precision=10, scale=0, nullable=false)
      */
-    private $decharge;
+    private $potentielbrut;
 
     /**
      * @var integer
@@ -62,27 +62,27 @@ class Statut
     }
 
     /**
-     * Set decharge
+     * Set potentielbrut
      *
-     * @param integer $decharge
+     * @param float $potentielbrut
      *
      * @return Statut
      */
-    public function setDecharge($decharge)
+    public function setPotentielbrut($potentielbrut)
     {
-        $this->decharge = $decharge;
+        $this->potentielbrut = $potentielbrut;
 
         return $this;
     }
 
     /**
-     * Get decharge
+     * Get potentielbrut
      *
-     * @return integer
+     * @return float
      */
-    public function getDecharge()
+    public function getPotentielbrut()
     {
-        return $this->decharge;
+        return $this->potentielbrut;
     }
 
     /**
