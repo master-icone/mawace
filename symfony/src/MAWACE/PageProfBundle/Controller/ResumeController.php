@@ -52,6 +52,10 @@ class ResumeController extends Controller
 		$valeurPN = $valeurPB-$valeurDecharge;
 		$heures = $repositoryHeuresAffectees->findBy(array('idUtilisateur'=>$idUser, 'annee' => $annee));//tableau avec les heures CM, TD, TP dans les UEs de l'utilisateurs
 		
+		$coeffsSupp = $repositoryCoeffSupp->findBy(array('idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
+				
+		$coeffs = $repositoryCoeff->findBy(array('idStatut'=> $idStatut));
+		
 		foreach($heures as $heure)
 		{
 			$Cours = $repositoryCours->findByid($heure->getIdCours());// tableau des cours (type(cm, td, tp) et UE correspondante)
@@ -62,9 +66,9 @@ class ResumeController extends Controller
 				$type = $repositoryTypeCours->findOneByid($typeId); //Récupération du type
 				$typenom = $type->getNom(); //Récupération du nom du type (CM, TD, TP...)
 				
-					$coeffsSupp[$typeId] = $repositoryCoeffSupp->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
+					//$coeffsSupp[$typeId] = $repositoryCoeffSupp->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
 				
-					$coeffs[$typeId] = $repositoryCoeff->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut));
+					//$coeffs[$typeId] = $repositoryCoeff->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut));
 				
 				if($typenom == "CM"){ //Si c'est un CM								
 					$sommeCM = $sommeCM+(float)$heure->getNbHeures(); //Ajout à la somme des heures CM	
