@@ -1,41 +1,61 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bienvenue sur ma première page avec OpenClassrooms !</title>
-        <link rel="stylesheet" href="{{ asset('bundles/styleSecretaire.css') }}" type="text/css" />
+        <title>Module de secrétaire</title>
+        {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
+        <!-- Custom style -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        {% endblock %}
     </head>
     <body>
-        <section id="page">
 
-            <h1>Liste des professeurs : </h1>
+        <div class="container">
 
-            <section id="tab">
-                <table border="1" cellpadding="10" cellspacing="1" width="100%">
-                    <tr>
-                        <th width="20%" align="center">Prénom</th>
-                        <th width="20%" align="center">Nom</th>
-                        <th width="20%" align="center">Département</th>
-                    </tr>
-                    {% for user in tableauUtilisateur %}
-                    <tr>
-                        <td align="center" valign="top"><a href="">{{user.nom}}</a></td>
-                        <td align="center" valign="top">{{user.prenom}}</td>
-                        <td align="center" valign="top">{{user.nomDep}}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </section>
-            <section id="listeButton">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                {{ form_end(form) }}
-                <form>
-                    <input class="button" type="submit" name="Deconnexion" value="Deconnexion" onclick="">
-                    <input class="button"  type="submit" name="Previson" value="Prevision" onclick="">
-                </form>
-            </section>
+            <h1>Liste des professeurs</h1>
 
-        </section>
+            <div class="row">
+                <section class="col-sm-9">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Département</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in tableauUtilisateur %}
+                            <tr>
+                                <td><a href="">{{user.nom}}</a></td>
+                                <td>{{user.prenom}}</td>
+                                <td>{{user.nomDep}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+
+                <nav class="col-sm-3">
+                    <ul class="nav nav-pills nav-stacked" data-spy="affix">
+                        <li class="active"><a href="{{ absolute_url('secretaire') }}">Secrétaire</a></li>
+                        <li><a href="{{ absolute_url('prevision') }}">Prévision</a></li>
+                        <li><a href="{{ absolute_url('logout') }}">Déconnexion</a></li>
+                    </ul>
+                </nav>
+
+                <section class="col-sm-9">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </section>
+
+            </div>
+        </div>
+
         {% block javascripts %}
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
