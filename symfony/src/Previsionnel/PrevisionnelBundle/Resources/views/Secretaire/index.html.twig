@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bienvenue sur ma première page avec OpenClassrooms !</title>
+        <link rel="stylesheet" href="{{ asset('bundles/styleSecretaire.css') }}" type="text/css" />
+    </head>
+    <body>
+        <section id="page">
+
+            <h1>Liste des professeurs : </h1>
+
+            <section id="tab">
+                <table border="1" cellpadding="10" cellspacing="1" width="100%">
+                    <tr>
+                        <th width="20%" align="center">Prénom</th>
+                        <th width="20%" align="center">Nom</th>
+                        <th width="20%" align="center">Département</th>
+                    </tr>
+                    {% for user in tableauUtilisateur %}
+                    <tr>
+                        <td align="center" valign="top"><a href="">{{user.nom}}</a></td>
+                        <td align="center" valign="top">{{user.prenom}}</td>
+                        <td align="center" valign="top">{{user.nomDep}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </section>
+            <section id="listeButton">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+                <form>
+                    <input class="button" type="submit" name="Deconnexion" value="Deconnexion" onclick="">
+                    <input class="button"  type="submit" name="Previson" value="Prevision" onclick="">
+                </form>
+            </section>
+
+        </section>
+        {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

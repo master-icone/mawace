@@ -25,3 +25,7 @@ previsionnel_search_typecours:
 previsionnel_get_typecours:
     path:     /prevision/get-typecours/{id}
     defaults: { _controller: PrevisionnelBundle:Prevision:getTypecours }
+    
+secretaire_homepage:
+    path:     /secretaire
+    defaults: { _controller: PrevisionnelBundle:Secretaire:index }
