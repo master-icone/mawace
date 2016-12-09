@@ -93,7 +93,7 @@ class ResumeController extends Controller
 		$typeCours = array($sommeCM, $sommeTD, $sommeTP, $sommeAutre);
 		
 		$potentielRestant = $valeurPN;
-		for($i=0; $i < strlen($ordre); $i++)
+		for($i=0; $i < count($coeffs); $i++)
 		{
 			$coeff = (float)$coeffs[substr($ordre,$i,1)]->getCoeff();
 			$coeffSupp = (float)$coeffsSupp[substr($ordre,$i,1)]->getCoeff();
