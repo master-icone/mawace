@@ -99,8 +99,8 @@ class ResumeController extends Controller
 		$potentielRestant = $valeurPN;
 		for($i=0; $i < count($coeffs); $i++)
 		{
-			$coeff = (float)$coeffs[substr($ordre,$i,1)]->getCoeff();
-			$coeffSupp = (float)$coeffsSupp[substr($ordre,$i,1)]->getCoeff();
+			$coeff = (float)$coeffs[substr($ordre,$i,1)-1]->getCoeff();
+			$coeffSupp = (float)$coeffsSupp[substr($ordre,$i,1)-1]->getCoeff();
 			
 			$effectue = $typeCours[substr($ordre,$i,1)-1]*$coeff;
 			if($effectue > $potentielRestant) {
