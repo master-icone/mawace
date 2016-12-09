@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 08 Décembre 2016 à 08:06
+-- Généré le :  Ven 09 Décembre 2016 à 11:47
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -210,15 +210,16 @@ CREATE TABLE `roles` (
 CREATE TABLE `statut` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `potentielBrut` double NOT NULL
+  `potentielBrut` double NOT NULL,
+  `ordreCours` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `statut`
 --
 
-INSERT INTO `statut` (`id`, `nom`, `potentielBrut`) VALUES
-(1, 'MCF', 192);
+INSERT INTO `statut` (`id`, `nom`, `potentielBrut`, `ordreCours`) VALUES
+(1, 'MCF', 192, '');
 
 -- --------------------------------------------------------
 
@@ -459,7 +460,7 @@ ALTER TABLE `ue`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
