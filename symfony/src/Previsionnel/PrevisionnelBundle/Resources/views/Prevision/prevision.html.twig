@@ -36,18 +36,18 @@
 		<script type="text/javascript">
 
 			$('#prevision_idutilisateur').autocompleter({
-				url_list: '/symfony/web/app_dev.php/prevision/search-utilisateurs',
-				url_get: '/symfony/web/app_dev.php/prevision/get-utilisateurs/'
+                url_list: "{{ absolute_url('prevision/search-utilisateurs') }}",
+                url_get: "{{ absolute_url('prevision/get-utilisateurs') }}"
 			});
 
 			$('#prevision_ue').autocompleter({
-				url_list: '/symfony/web/app_dev.php/prevision/search-ue',
-				url_get: '/symfony/web/app_dev.php/prevision/get-ue/'
+                url_list: "{{ absolute_url('prevision/search-ue') }}",
+                url_get: "{{ absolute_url('prevision/get-ue') }}"
 			});
 
 			$('#prevision_typecours').autocompleter({
-				url_list: '/symfony/web/app_dev.php/prevision/search-typecours',
-				url_get: '/symfony/web/app_dev.php/prevision/get-typecours/'
+                url_list: "{{ absolute_url('prevision/search-typecours') }}",
+                url_get: "{{ absolute_url('prevision/get-typecours') }}"
 			});
 
 		</script>
