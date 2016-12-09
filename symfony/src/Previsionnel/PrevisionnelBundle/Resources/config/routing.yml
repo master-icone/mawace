@@ -1,4 +1,4 @@
-previsionnel_homepage:
+previsionnel_prevision:
     path:     /prevision
     defaults: { _controller: PrevisionnelBundle:Prevision:index }
 

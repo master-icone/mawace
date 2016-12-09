@@ -210,9 +210,7 @@ class PrevisionController extends Controller
 
 	public function getUtilisateursAction($id = null)
 	{
-		$utilisateur = $this->getDoctrine()->getRepository('PrevisionnelBundle:Utilisateurs')->find($id);
-
-		return new Response($utilisateur->getIdutilisateur());
+		return new Response($id);
 	}
 
 	// Autocomplete : Nom de l'UE
@@ -235,9 +233,7 @@ class PrevisionController extends Controller
 
 	public function getUeAction($id = null)
 	{
-		$ue = $this->getDoctrine()->getRepository("PrevisionnelBundle:Ue")->find($id);
-
-		return new Response($ue->getId());
+		return new Response($id);
 	}
 
 	// Autocomplete : Nom du type de cours
@@ -260,8 +256,6 @@ class PrevisionController extends Controller
 
 	public function getTypecoursAction($id = null)
 	{
-		$typecours = $this->getDoctrine()->getRepository("PrevisionnelBundle:Typecours")->find($id);
-
-		return new Response($typecours->getId());
+		return new Response($id);
 	}
 }
