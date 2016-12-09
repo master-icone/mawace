@@ -50,7 +50,7 @@ class SecretaireController extends Controller
 
         $content = $this
             ->get('templating')
-            ->render('PrevisionnelBundle:Default:index.html.twig' , array('tableauUtilisateur' => $tab , "form" =>$form->createView()));
+            ->render('PrevisionnelBundle:Secretaire:index.html.twig' , array('tableauUtilisateur' => $tab , "form" =>$form->createView()));
 
         return new Response($content);
     }/*Chercher les formulaire de symfony
