@@ -20,8 +20,11 @@ class ResumeController extends Controller
 		$TDcoeff = 0;
 		$TPcoeff = 0;
 		$total = 0; //Total des heures sans coefficient
+		$totalCoeff = 0; //Total des heures avec coefficient
 		$AUTREcoeff = 0;
 		$HorsService = 0;
+		$supp =0;
+		$ordre  = "123";
 		
 		$idUser = $id;
 		
@@ -59,43 +62,52 @@ class ResumeController extends Controller
 				$type = $repositoryTypeCours->findOneByid($typeId); //Récupération du type
 				$typenom = $type->getNom(); //Récupération du nom du type (CM, TD, TP...)
 				
+					$coeffsSupp[$typeId] = $repositoryCoeffSupp->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
 				
-				if($total > $valeurPN)
-				{
-					$coeff[$typenom] = $repositoryCoeffSupp->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
-				}else{
-					$coeff[$typenom] = $repositoryCoeff->findOneBy(array('idTypeCours'=> $type, 'idStatut'=> $idStatut));
-				}
-				$total = $total+$heure->getNbHeures();
+					$coeffs[$typeId] = $repositoryCoeff->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut));
 				
 				if($typenom == "CM"){ //Si c'est un CM								
 					$sommeCM = $sommeCM+(float)$heure->getNbHeures(); //Ajout à la somme des heures CM	
-					$CMcoeff = $CMcoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff(); //Calcul CM avec coefficient
 					$u[$cours->getIdUE()]["CM"] = $heure->getNbHeures(); //Stockage des heures de CM à l'UE correspondante
 				}
 				if($typenom == "TD"){ //Si c'est un TD
 					$sommeTD = $sommeTD+(float)$heure->getNbHeures();
-					$TDcoeff = $TDcoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff();
 					$u[$cours->getIdUE()]["TD"]= $heure->getNbHeures();
 				}
 				if($typenom == "TP"){ //SI c'est un TP
 					$sommeTP = $sommeTP+(float)$heure->getNbHeures();
-					$TPcoeff = $TPcoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff();
 					$u[$cours->getIdUE()]["TP"] = $heure->getNbHeures();
 				}
 				
 				if($typenom != "CM" && $typenom != "TD" && $typenom != "TP"){
 					$sommeAutre = $sommeAutre+(float)$heure->getNbHeures();
-					$Autrecoeff = $Autrecoeff+(float)$heure->getNbHeures()*(float)$coeff[$typenom]->getCoeff();
 					$u[$cours->getIdUE()]["AUTRE"] = $heure->getNbHeures();
 				}
+				
+				
 				
 			}
 			
 		}
-
-		if($total > $valeurPN) {$HorsService = $total - $valeurPN;}
-		$totalCoeff = $CMcoeff+$TDcoeff+$TPcoeff+$AUTREcoeff; //Total des heures avec coefficient
+		$total = $sommeCM+$sommeTD+$sommeTP+$sommeAutre;
+		$typeCours = array($sommeCM, $sommeTD, $sommeTP, $sommeAutre);
+		
+		$potentielRestant = $valeurPN;
+		for($i=0; $i < strlen($ordre); $i++)
+		{
+			$coeff = (float)$coeffs[substr($ordre,$i,1)]->getCoeff();
+			$coeffSupp = (float)$coeffsSupp[substr($ordre,$i,1)]->getCoeff();
+			
+			$effectue = $typeCours[substr($ordre,$i,1)-1]*$coeff;
+			if($effectue > $potentielRestant) {
+				$supp = $supp+((($effectue-$potentielRestant)/$coeff)*$coeffSupp);
+			}
+			$potentielRestant = $potentielRestant-$effectue; //99.75
+			$totalCoeff = $totalCoeff+$effectue; //92.25
+		}
+		
+		$HorsService = $supp;
+		
 
 		// Création du graphique
         $sellsHistory = array(
