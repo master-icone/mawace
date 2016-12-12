@@ -1,6 +1,6 @@
 <?php
 
-namespace mawace\ticketBundle\DependencyInjection;
+namespace Previsionnel\ticketBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

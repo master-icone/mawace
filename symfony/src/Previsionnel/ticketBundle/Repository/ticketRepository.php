@@ -1,6 +1,6 @@
 <?php
 
-namespace mawace\ticketBundle\Repository;
+namespace Previsionnel\ticketBundle\Repository;
 
 /**
  * ticketRepository

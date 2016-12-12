@@ -1,6 +1,6 @@
 <?php
 
-namespace mawace\ticketBundle\Form;
+namespace Previsionnel\ticketBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -30,7 +30,7 @@ class ticketType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'mawace\ticketBundle\Entity\ticket'
+            'data_class' => 'Previsionnel\ticketBundle\Entity\ticket'
         ));
     }
 
