@@ -9,6 +9,10 @@ previsionnel_user:
 mawace_page_professeur:
     resource: "@MAWACEPageProfBundle/Resources/config/routing.yml"
     prefix:   /
+    
+mawace_tickets:
+    resource: "@mawaceticketBundle/Resources/config/routing.yml"
+    prefix:   /
 
 app:
     resource: "@AppBundle/Controller/"

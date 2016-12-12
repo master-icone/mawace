@@ -1,9 +1,9 @@
 <?php
 
-namespace mawace\ticketBundle\Controller;
+namespace Previsionnel\ticketBundle\Controller;
 
-use mawace\ticketBundle\Form\ticketType;
-use mawace\ticketBundle\Entity\ticket;
+use Previsionnel\ticketBundle\Form\ticketType;
+use Previsionnel\ticketBundle\Entity\ticket;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

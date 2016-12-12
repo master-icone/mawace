@@ -21,6 +21,7 @@ class AppKernel extends Kernel
 			new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
 			new MAWACE\PageProfBundle\MAWACEPageProfBundle(),
 			new Ob\HighchartsBundle\ObHighchartsBundle(),
+            new Previsionnel\ticketBundle\mawaceticketBundle(),
 		];
 
 		if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

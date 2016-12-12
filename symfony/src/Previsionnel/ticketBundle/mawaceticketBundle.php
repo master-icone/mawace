@@ -1,6 +1,6 @@
 <?php
 
-namespace mawace\ticketBundle;
+namespace Previsionnel\ticketBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
