@@ -1,3 +1,0 @@
-mawaceticket_homepage:
-    path:     /
-    defaults: { _controller: mawaceticketBundle:Default:index }

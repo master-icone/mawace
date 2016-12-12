@@ -1,4 +1,0 @@
-previsionneluser_accueil:
-    path: /accueil
-    defaults:
-        _controller: PrevisionnelUserBundle:Accueil:index
