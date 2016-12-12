@@ -1,4 +1,4 @@
-ma_route:
-    path: /ma_route
+previsionneluser_accueil:
+    path: /accueil
     defaults:
-        _controller: PrevisionnelUserBundle:Default:index
+        _controller: PrevisionnelUserBundle:Accueil:index
