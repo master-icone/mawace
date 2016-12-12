@@ -24,8 +24,3 @@ login_check:
 
 logout:
     path: /logout
-
-ma_route:
-    path: /ma_route
-    defaults:
-        _controller: PrevisionnelUserBundle:Default:index
