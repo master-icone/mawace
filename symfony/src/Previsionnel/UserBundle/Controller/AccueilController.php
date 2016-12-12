@@ -11,6 +11,15 @@ class AccueilController extends Controller
 {
 	public function indexAction()
 	{
-		return $this->render("PrevisionnelUserBundle:Accueil:accueil.html.twig");
+        $user = $this->getUser();
+        
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Utilisateurs')->findOneBy([
+            "login" => $user
+        ]);
+        
+		return $this->render("PrevisionnelUserBundle:Accueil:accueil.html.twig", [
+            "utilisateur" => $utilisateur
+        ]);
 	}
 }

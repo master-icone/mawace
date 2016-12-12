@@ -10,6 +10,7 @@ security:
     in_memory:
       memory:
         users:
+          cdemko:  { password: cdemko, roles: [ 'ROLE_USER' ] }
           test:  { password: test, roles: [ 'ROLE_USER' ] }
           admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
@@ -24,7 +25,7 @@ security:
       form_login:
         login_path: login
         check_path: login_check
-        default_target_path: accueil
+        default_target_path: previsionneluser_accueil
       logout:
         path:       logout
         target:     /login

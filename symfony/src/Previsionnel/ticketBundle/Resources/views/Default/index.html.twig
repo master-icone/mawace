@@ -14,13 +14,21 @@
 </head>
 <body>
 
+        {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
 
+<<<<<<< HEAD
         <div class="container">
                 <h1>Envoi Ticket</h1>
 
                 <div class="row">
 
                 <section class="col-sm-8 col-sm-offset-2">
+=======
+        {{  form_widget(form) }}
+        <button type="submit"> ajouter </button>
+
+        {{ form_end(form) }}
+>>>>>>> 9c355b848ebae8a621a66dd3aded4960b2ee05a9
 
                 {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
                 {{ form_row(form.motif) }}
@@ -34,6 +42,10 @@
                 </section>
                 </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9c355b848ebae8a621a66dd3aded4960b2ee05a9
 
                 {% block javascripts %}
                         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
