@@ -1,70 +1,65 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Module de secrétaire</title>
-		{% block stylesheets %}
-		<!-- Bootstrap core CSS -->
-		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
-		<!-- Custom style -->
-		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-		{% endblock %}
-	</head>
-	<body>
+    <head>
+        <title>Module de secrétaire</title>
+        {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
+        <!-- Custom style -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
 
-		<div class="container">
+        <div class="container">
 
-			<h1>Liste des professeurs</h1>
-			
-			<div class="row">
-				<nav class="col-sm-2 col-sm-offset-10">
-					<ul class="nav nav-pills nav-stacked fixed">
-						<li><a href="#">Résumé</a></li>
-						<li class="active"><a href="{{ absolute_url('secretaire') }}">Secrétaire</a></li>
-						<li><a href="{{ absolute_url('prevision') }}">Prévision</a></li>
-						<li><a href="{{ absolute_url('logout') }}">Déconnexion</a></li>
-					</ul>
-				</nav>
-			</div>
+            <h1>Liste des professeurs</h1>
 
-			<div class="row">
-				<section class="col-sm-8 col-sm-offset-2">
-					<table class="table table-bordered table-hover table-condensed">
-						<thead>
-							<tr>
-								<th>Prénom</th>
-								<th>Nom</th>
-								<th>Département</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for user in tableauUtilisateur %}
-							<tr>
-								<td><a href="">{{user.nom}}</a></td>
-								<td>{{user.prenom}}</td>
-								<td>{{user.nomDep}}</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</section>
-			</div>
+            <div class="row">
+                <section class="col-sm-9">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Département</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in tableauUtilisateur %}
+                            <tr>
+                                <td><a href="page-professeur/{{annee}}/{{user.id}}">{{user.nom}}</a></td>
+                                <td>{{user.prenom}}</td>
+                                <td>{{user.nomDep}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
 
-			<div class="row">
-				<section class="col-sm-8 col-sm-offset-2">
-					{{ form_start(form) }}
-					{{ form_widget(form) }}
-					{{ form_end(form) }}
-				</section>
-			</div>
+                <nav class="col-sm-3">
+                    <ul class="nav nav-pills nav-stacked" data-spy="affix">
+                        <li class="active"><a href="{{ absolute_url('secretaire') }}">Secrétaire</a></li>
+                        <li><a href="{{ absolute_url('prevision') }}">Prévision</a></li>
+                        <li><a href="{{ absolute_url('logout') }}">Déconnexion</a></li>
+                    </ul>
+                </nav>
 
-		</div>
+                <section class="col-sm-9">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </section>
 
-		{% block javascripts %}
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-		<script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
-		{% endblock %}
-	</body>
+            </div>
+        </div>
+
+        {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+        {% endblock %}
+    </body>
 </html>
