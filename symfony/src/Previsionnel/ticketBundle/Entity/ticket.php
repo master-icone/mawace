@@ -1,6 +1,6 @@
 <?php
 
-namespace mawace\ticketBundle\Entity;
+namespace Previsionnel\ticketBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;

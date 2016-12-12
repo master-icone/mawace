@@ -1,6 +1,6 @@
 <?php
 
-namespace mawace\ticketBundle\Tests\Controller;
+namespace Previsionnel\ticketBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

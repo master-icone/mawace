@@ -1,6 +1,6 @@
 <?php
 
-namespace mawace\ticketBundle\DependencyInjection;
+namespace Previsionnel\ticketBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
