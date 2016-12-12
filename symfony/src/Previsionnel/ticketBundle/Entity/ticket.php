@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * ticket
  *
- * @ORM\Table(name="ticket")
- * @ORM\Entity(repositoryClass="mawace\ticketBundle\Repository\ticketRepository")
+ * @ORM\Table(name="tickets")
+ * @ORM\Entity(repositoryClass="Previsionnel\ticketBundle\Repository\ticketRepository")
  */
 class ticket
 {
