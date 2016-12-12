@@ -56,6 +56,8 @@ class ticket
      * @var string
      *
      * @ORM\Column(name="etat", type="string", length=1)
+     *
+     * @Assert\NotBlank(message="champ obligatoire")
      */
     private $etat;
 
@@ -63,6 +65,8 @@ class ticket
      * @var int
      *
      * @ORM\Column(name="IdExpediteur", type="integer")
+     *
+     * @Assert\NotBlank(message="champ obligatoire")
      */
     private $IdExpediteur;
 
@@ -70,6 +74,8 @@ class ticket
      * @var int
      *
      * @ORM\Column(name="idUE", type="integer")
+     *
+     * @Assert\NotBlank(message="champ obligatoire")
      */
     private $idUE;
 
