@@ -12,14 +12,32 @@
 </head>
 <body>
 
+
+<div class="container">
+
+        <h1>Envoi Ticket</h1>
+
+<div class="row">
+        <section class="col-sm-8 col-sm-offset-2">
+
         {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
-
-        {{  form_widget(form) }}
-        <button type="submit"> ajouter </button>
-
+        {{ form_row(form.motif) }}
+        {{ form_row(form.message) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.etat) }}
+        {{ form_row(form.IdExpediteur) }}
+        {{ form_row(form.idUE) }}
+        <button class="button " type="submit"> envoyer </button>
+        
         {{ form_end(form) }}
+        </section>
+        </div>
 
 
-
+        {% block javascripts %}
+                <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+                <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+        {% endblock %}
 
 </body>
