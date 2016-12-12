@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page professeur</title>
+		{% block stylesheets %}
+		<!-- Bootstrap core CSS -->
+		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+		<!-- Bootstrap theme -->
+		<!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
+		<!-- Autocompleter theme -->
+		<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+		<!-- Custom style -->
+		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+		{% endblock %}
+	</head>
+	<body>
+
+		<div class="container">
+			<h1>Résumé pour {{ user.prenom }} {{ user.nom }}</h1>
+
+			<div class="row">
+				<nav class="col-sm-2 col-sm-offset-10">
+					<ul class="nav nav-pills nav-stacked fixed">
+						<li><a href="#">Résumé</a></li>
+						<li><a href="{{ absolute_url('secretaire') }}">Secrétaire</a></li>
+						<li class="active"><a href="{{ absolute_url('prevision') }}">Prévision</a></li>
+						<li><a href="{{ absolute_url('logout') }}">Déconnexion</a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="row">
+				<section class="col-sm-8 col-sm-offset-2">
+					<article class="row">
+						<div id="linechart" class="col-md-6 col-md-push-6"></div>
+						<div class="col-md-6 col-md-pull-6">
+							<p>Nombre d'heures totales: {{ total }}</p>
+							<p>Nombre d'heures hors-service : {{horsService}}</p>
+							<p>Nombre d'heures totales avec coefficients: {{ totalCoeff }}</p>
+
+							<div class="row">
+								<ul class="ue-list list-unstyled col-xs-12 col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
+									{% for ue in UEs %}
+									{% for u in ue %}
+									<li>
+										{{ u.nom }}<br/>
+										{% for key, he in heuresUEs %}
+										{% if key == u.id %}
+										{% if he.CM is defined %} CM: {{he.CM}} heure(s){% endif %} {% if he.TD is defined %} TD: {{he.TD}} heure(s){% endif %} {% if he.TP is defined %} TP: {{he.TP}} heure(s){% endif %} {% if he.AUTRE is defined %} Autre: {{he.AUTRE}} heure(s){% endif %}</li>
+									{% endif %}
+									{% endfor %}
+									</li>
+								{% endfor %}
+								{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</article>
+				</section>
+		</div>
+		</div>
+
+	{% block javascripts %}
+	<!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.highcharts.com/4.1.8/highcharts.js"></script>
+	<script src="https://code.highcharts.com/4.1.8/modules/exporting.js"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript">
+		{{ chart(linechart) }}
+	</script>
+	{% endblock %}
+
+	</body>
+</html>

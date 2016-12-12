@@ -1,0 +1,58 @@
+h1 {
+	text-align: center;
+}
+
+nav .nav li {
+	text-align: center;
+}
+
+.fixed {
+    position: fixed;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+section {
+    background-color: #eee;
+	margin-top: 10px;
+	margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+section:first-of-type {
+	margin-top: 0;
+}
+
+form button[type="submit"] {
+    margin-right: 10px;
+}
+
+table.table {
+    margin: 0;
+    background-color: white;
+}
+
+table.table thead {
+    background-color: #f5f5f5;
+}
+
+ul {
+	margin-top: 20px;
+}
+
+.ue-list li {
+	text-align:center;
+	border:1px solid;
+	border-radius: 10px;
+}
+
+#linechart {
+	margin-bottom: 20px;
+}
+
+@media screen and (max-width: 767px) {
+	.fixed {
+		position: static;
+	}
+}

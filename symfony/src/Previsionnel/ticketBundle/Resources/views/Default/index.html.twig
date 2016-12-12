@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+        <meta charset="utf-8">
+        <title>ticket</title>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css ') }}">
+
+
+
+</head>
+<body>
+
+        {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
+
+        {{  form_widget(form) }}
+        <button type="submit"> ajouter </button>
+
+        {{ form_end(form) }}
+
+
+
+
+</body>
