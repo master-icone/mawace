@@ -47,10 +47,6 @@ ul {
 	border-radius: 10px;
 }
 
-#linechart {
-	margin-bottom: 20px;
-}
-
 @media screen and (max-width: 767px) {
 	.fixed {
 		position: static;
