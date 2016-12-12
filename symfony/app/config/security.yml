@@ -24,7 +24,7 @@ security:
       form_login:
         login_path: login
         check_path: login_check
-        default_target_path: ma_route
+        default_target_path: accueil
       logout:
         path:       logout
         target:     /login

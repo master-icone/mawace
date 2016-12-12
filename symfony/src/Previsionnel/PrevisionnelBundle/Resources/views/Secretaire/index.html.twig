@@ -28,6 +28,29 @@
 				</nav>
 			</div>
 
+<<<<<<< HEAD
+            <div class="row">
+                <section class="col-sm-9">
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Département</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in tableauUtilisateur %}
+                            <tr>
+                                <td><a href="page-professeur/{{annee}}/{{user.id}}">{{user.nom}}</a></td>
+                                <td>{{user.prenom}}</td>
+                                <td>{{user.nomDep}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+=======
 			<div class="row">
 				<section class="col-sm-8 col-sm-offset-2">
 					<table class="table table-bordered table-hover table-condensed">
@@ -50,6 +73,7 @@
 					</table>
 				</section>
 			</div>
+>>>>>>> d5d00f678cd500acb059c0461429c9c1f01d9401
 
 			<div class="row">
 				<section class="col-sm-8 col-sm-offset-2">
