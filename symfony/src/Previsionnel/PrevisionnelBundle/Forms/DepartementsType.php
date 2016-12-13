@@ -30,13 +30,14 @@ class DepartementsType extends AbstractType
 
             ->add("ajouter", SubmitType::class, [
                 "label" => "Ajouter",
-                "attr" => ["class" => "btn btn-success pull-left"],
+                "attr" => ["class" => "btn btn-success"],
             ])
 
 
 
 
             ->add("nom", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
+                "label" => "Ancien nom :",
                 "attr" => ["placeholder" => "Ancien nom"],
                 "class" => "PrevisionnelBundle:Departements",
                 "required" => false,

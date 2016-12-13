@@ -19,11 +19,7 @@
     	<div class="container">
 
 
-			{% for flash_message in app.session.flashBag.get('notice') %}
-			    <div class="flash-notice">
-			        {{ flash_message }}
-			    </div>
-			{% endfor %}
+
 
 
 
@@ -42,7 +38,7 @@
                         <li><a href="prevision">Prévision</a></li>
                         {% endif %}
                         {% if "Affectation des départements" in roles %}
-                        <li><a href="departement">Départements</a></li>
+                        <li class="active"><a href="departement">Départements</a></li>
                         {% endif %}
                         {% if "Voir les tickets" in roles %}
                         <li><a href="tickets">Tickets</a></li>
@@ -50,7 +46,10 @@
                         <li><a href="logout">Déconnexion</a></li>
 					</ul>
 				</nav>
+
 			</div>
+
+
 
 
 
@@ -59,6 +58,23 @@
 
     		<div class="row">
 					<section class="col-sm-8 col-sm-offset-2">
+
+
+			{% for flash_message in app.session.flashBag.get('success') %}
+			    <div class="flash-notice alert alert-success">
+			    	<strong>Succès!</strong>
+			        {{ flash_message }}
+			    </div>
+			{% endfor %}
+
+			{% for flash_message in app.session.flashBag.get('echec') %}
+			    <div class="flash-notice alert alert-danger">
+			    	<strong>Échec!</strong>
+			        {{ flash_message }}
+			    </div>
+			{% endfor %}
+
+
 						{{ form_start(form) }}
 						{{ form_widget(form) }}
 						{{ form_end(form) }}

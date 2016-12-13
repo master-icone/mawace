@@ -64,7 +64,7 @@ class DepartementController extends Controller
                     $em->flush();
 
                     $this->addFlash(
-                        'notice',
+                        'success',
                         'Département ajouté'
                     );
                     return $this->redirectToRoute('previsionnel_departement');
@@ -74,23 +74,30 @@ class DepartementController extends Controller
 
 
                 if ($form->get("supprimer")->isClicked()){
+                    if(!empty($form->get('nom')->getData())){
                     $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
                         "nom" => $form->get('nom')->getData()->getId()
                     ]);
+                    
 
-                    if (!empty($entities)) {
+                    if (!empty($entities)&& $entities!=null) {
                         foreach ($entities as $entity) {
                             $em->remove($entity);
                             $em->flush();	        
                         }
                         $this->addFlash(
-                            'notice',
+                            'success',
                             'Département supprimé'
                         );
                         return $this->redirectToRoute('previsionnel_departement');
                     }
+                }
                     else{
-                        echo "Ce departement n'existe pas";
+                        $this->addFlash(
+                            'echec',
+                            'Ce département n\'est pas présent dans la base'
+                        );
+                        return $this->redirectToRoute('previsionnel_departement');
                     }
                 }
 
@@ -110,7 +117,7 @@ class DepartementController extends Controller
                     $em->flush();
 
                     $this->addFlash(
-                        'notice',
+                        'success',
                         'Département modifié'
                     );
 
