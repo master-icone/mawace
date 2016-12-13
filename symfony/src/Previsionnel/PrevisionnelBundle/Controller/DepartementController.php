@@ -75,51 +75,60 @@ class DepartementController extends Controller
 
                 if ($form->get("supprimer")->isClicked()){
                     if(!empty($form->get('nom')->getData())){
-                    $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
-                        "nom" => $form->get('nom')->getData()->getId()
-                    ]);
-                    
+                        $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
+                            "nom" => $form->get('nom')->getData()->getId()
+                        ]);
+                        
 
-                    if (!empty($entities)&& $entities!=null) {
-                        foreach ($entities as $entity) {
-                            $em->remove($entity);
-                            $em->flush();	        
+                        if (!empty($entities)&& $entities!=null) {
+                            foreach ($entities as $entity) {
+                                $em->remove($entity);
+                                $em->flush();	        
+                            }
+                            $this->addFlash(
+                                'success',
+                                'Département supprimé'
+                            );
                         }
-                        $this->addFlash(
-                            'success',
-                            'Département supprimé'
-                        );
-                        return $this->redirectToRoute('previsionnel_departement');
                     }
-                }
                     else{
                         $this->addFlash(
                             'echec',
                             'Ce département n\'est pas présent dans la base'
                         );
-                        return $this->redirectToRoute('previsionnel_departement');
+
                     }
+
+                    return $this->redirectToRoute('previsionnel_departement');
+
                 }
 
 
 
                 if($form->get("modifier")->isClicked()){
-                    $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
-                        "nom" => $form->get('nom')->getData()->getId()
-                    ]);
+                    if(!empty($form->get('nom')->getData())){
+                        $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
+                            "nom" => $form->get('nom')->getData()->getId()
+                        ]);
 
-                    if(!empty($entities)){
-                        foreach ($entities as $entity) {
-                            $entity->setNom($form->get('nouveauNom')->getData());
+                        if(!empty($entities)){
+                            foreach ($entities as $entity) {
+                                $entity->setNom($form->get('nouveauNom')->getData());
+                            }
                         }
+                        $em->flush();
+                        $this->addFlash(
+                            'success',
+                            'Département modifié'
+                        );
+                    }
+                    else{
+                        $this->addFlash(
+                            'echec',
+                            'Ce département n\'est pas présent dans la base'
+                        );
                     }
 
-                    $em->flush();
-
-                    $this->addFlash(
-                        'success',
-                        'Département modifié'
-                    );
 
                     return $this->redirectToRoute('previsionnel_departement');
 
