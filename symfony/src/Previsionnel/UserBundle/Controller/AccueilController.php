@@ -54,7 +54,8 @@ class AccueilController extends Controller
         return $this->render("PrevisionnelUserBundle:Accueil:accueil.html.twig", [
             "utilisateur" => $utilisateur,
             "statut" => $statut,
-            "roles" => $listeRoles
+            "roles" => $listeRoles,
+            "annee" => $anneeScolaire
         ]);
     }
 }

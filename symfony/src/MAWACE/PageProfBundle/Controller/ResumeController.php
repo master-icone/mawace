@@ -12,6 +12,38 @@ class ResumeController extends Controller
 {
 	public function viewAction($id, $annee)
 	{
+        $user = $this->getUser();
+
+        $now = new \DateTime("now");
+        $now = $now->format("Y");
+        $anneeScolaire = $now."-".($now + 1);
+
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Utilisateurs')->findOneBy([
+            "login" => $user
+        ]);
+
+        $listeRoles = array();
+        if (!empty($utilisateur)) {
+            $archive = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Archiveutilisateurs')->findOneBy([
+                "idutilisateur" => $utilisateur->getId(),
+                "annee" => $anneeScolaire
+            ]);
+
+            if (!empty($archive)) {
+                $rolesExploded = explode("/", $archive->getIdrole());
+
+                foreach($rolesExploded as $idrole) {
+                    $role = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Roles')->findOneBy([
+                        "id" => $idrole
+                    ]);
+
+                    array_push($listeRoles, $role->getNom());
+                }
+            }
+        }
+        
+        if (in_array("Résumé des cours", $listeRoles)) {
 		$sommeCM = 0;
 		$sommeTD = 0;
 		$sommeTP = 0;
@@ -139,7 +171,14 @@ class ResumeController extends Controller
 	   $ob->series($sellsHistory);
 
 		
-		return $this->render('MAWACEPageProfBundle:Resume:view.html.twig', array('linechart' => $ob,'user' => $user, 'horsService' => $HorsService, 'heuresUEs' => $u, 'UEs' => $UEs, 'total' => $total, 'totalCoeff' => $totalCoeff));
+        return $this->render('MAWACEPageProfBundle:Resume:view.html.twig', array('linechart' => $ob,'user' => $user, 'horsService' => $HorsService, 'heuresUEs' => $u, 'UEs' => $UEs, 'total' => $total, 'totalCoeff' => $totalCoeff, 
+                                                                                 "utilisateur" => $utilisateur,
+                                                                                 "roles" => $listeRoles,
+                                                                                 "annee" => $anneeScolaire));
+    }
+    else {
+        return $this->redirectToRoute("previsionneluser_accueil");
+    }
 			
 			
 		
