@@ -139,6 +139,8 @@ class PrevisionController extends Controller
                         else {
                             $this->addFlash("danger", "Impossible d'affecter ce type de cours au statut de cet utilisateur.");
                         }
+
+                        return $this->redirectToRoute("previsionnel_prevision");
                     }
 
                     // Si le formulaire est de type "Modification"
@@ -175,6 +177,8 @@ class PrevisionController extends Controller
                         else {
                             $this->addFlash("danger", "Impossible d'affecter ce type de cours au statut de cet utilisateur.");
                         }
+
+                        return $this->redirectToRoute("previsionnel_prevision");
                     }
 
                     // Si le formulaire est de type "Suppression"
@@ -196,6 +200,8 @@ class PrevisionController extends Controller
                         else {
                             $this->addFlash("danger", "Aucune heure n'était affectée à cet utilisateur pour le cours sélectionné");
                         }
+
+                        return $this->redirectToRoute("previsionnel_prevision");
                     }
                 }
             }
