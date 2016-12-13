@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 09 Décembre 2016 à 11:47
+-- Généré le :  Mar 13 Décembre 2016 à 13:14
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -41,7 +41,7 @@ CREATE TABLE `archiveutilisateurs` (
 --
 
 INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `idStatut`, `idRole`, `decharge`, `annee`) VALUES
-(1, 1, 1, 1, '1', 0, '2016-2017');
+(1, 1, 1, 1, '2/3/7/8', 0, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE `heuresaffectees` (
 --
 
 INSERT INTO `heuresaffectees` (`id`, `idUtilisateur`, `idCours`, `nbHeures`, `annee`) VALUES
-(17, 1, 1, 12, '2016-2017'),
+(30, 1, 1, 20, '2016-2017'),
 (26, 1, 3, 10, '2016-2017');
 
 -- --------------------------------------------------------
@@ -200,6 +200,18 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `roles`
+--
+
+INSERT INTO `roles` (`id`, `nom`) VALUES
+(1, 'Secrétaire'),
+(2, 'Résumé des cours'),
+(3, 'Voir les tickets'),
+(7, 'Envoyer un ticket'),
+(8, 'Affectation d\'heures de cours'),
+(9, 'Affectation des départements');
 
 -- --------------------------------------------------------
 
@@ -420,7 +432,7 @@ ALTER TABLE `departements`
 -- AUTO_INCREMENT pour la table `heuresaffectees`
 --
 ALTER TABLE `heuresaffectees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT pour la table `interdictionaffectation`
 --
@@ -435,7 +447,7 @@ ALTER TABLE `limitenbcours`
 -- AUTO_INCREMENT pour la table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pour la table `statut`
 --
