@@ -2,11 +2,13 @@
 
 namespace Previsionnel\ticketBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class ticketType extends AbstractType
 {
@@ -17,11 +19,15 @@ class ticketType extends AbstractType
     {
         $builder
 		->add('motif',TextType::class)
-		->add('message',TextType::class)
+		->add('message',TextareaType::class)
 		->add('date',DateType::class)
 		->add('etat',TextType::class)
 		->add('IdExpediteur',TextType::class)
-		->add('idUE',TextType::class);
+		->add('idUE',"PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
+            "class" => "ticketBundle:ticket",
+            "label" => "UE : ",
+            "mapped" => false,
+            "attr" => ["placeholder" => "UE"],]);
     }
     
     /**
