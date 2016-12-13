@@ -9,253 +9,289 @@ use Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees;
 
 class PrevisionController extends Controller
 {
-	public function indexAction(Request $request)
-	{
-		$prevision = new Heuresaffectees();
-		$now = new \DateTime("now");
-		$now = $now->format("Y");
-		$anneeScolaire = $now."-".($now + 1);
-		$prevision->setAnnee($anneeScolaire);
+    public function indexAction(Request $request)
+    {
+        $user = $this->getUser();
 
-		$form = $this->createForm(Prevision::class, $prevision);
+        $now = new \DateTime("now");
+        $now = $now->format("Y");
+        $anneeScolaire = $now."-".($now + 1);
 
-		$form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Utilisateurs')->findOneBy([
+            "login" => $user
+        ]);
 
-		if ($form->isSubmitted() && $form->isValid()) {
+        $listeRoles = array();
+        if (!empty($utilisateur)) {
+            $archive = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Archiveutilisateurs')->findOneBy([
+                "idutilisateur" => $utilisateur->getId(),
+                "annee" => $anneeScolaire
+            ]);
 
-			$UtilisateurCoursValides = true;
-			$em = $this->getDoctrine()->getManager();
-			$prevision = $form->getData();
+            if (!empty($archive)) {
+                $rolesExploded = explode("/", $archive->getIdrole());
 
-			$cours = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Cours')->findOneBy([
-				"idue" => $form->get('ue')->getData()->getId(),
-				"idtypecours" => $form->get('typecours')->getData()->getId()
-			]);
+                foreach($rolesExploded as $idrole) {
+                    $role = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Roles')->findOneBy([
+                        "id" => $idrole
+                    ]);
 
-			if (empty($cours)) {
-				echo "Ce cours n'existe pas.";
-				$UtilisateurCoursValides = false;
-			}
+                    array_push($listeRoles, $role->getNom());
+                }
+            }
+        }
 
-			// On verifie si le prof et le cours existent.
+        if (in_array("Affectation d'heures de cours", $listeRoles)) {
+            $prevision = new Heuresaffectees();
+            $prevision->setAnnee($anneeScolaire);
 
-			$utilisateur = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Utilisateurs')->findOneBy([
-				"id" => $prevision->getIdutilisateur()
-			]);
+            $form = $this->createForm(Prevision::class, $prevision);
 
-			if (empty($utilisateur)) {
-				echo "Cet utilisateur n'existe pas.";
-				$UtilisateurCoursValides = false;
-			}
+            $form->handleRequest($request);
 
-			if ($UtilisateurCoursValides) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-				// On réaffecte les valeurs à l'entité car l'autocomplétion renvoie des tableaux
+                $UtilisateurCoursValides = true;
+                $em = $this->getDoctrine()->getManager();
+                $prevision = $form->getData();
 
-				$prevision->setIdutilisateur($prevision->getIdutilisateur()->getId());
-				$prevision->setIdcours($cours->getId());
+                $cours = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Cours')->findOneBy([
+                    "idue" => $form->get('ue')->getData()->getId(),
+                    "idtypecours" => $form->get('typecours')->getData()->getId()
+                ]);
 
-				// Si le formulaire est de type "Ajout"
+                if (empty($cours)) {
+                    echo "Ce cours n'existe pas.";
+                    $UtilisateurCoursValides = false;
+                }
 
-				$statutAutorise = true;
+                // On verifie si le prof et le cours existent.
 
-				$archiveUtilisateurs = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Archiveutilisateurs')->findOneBy([
-					"idutilisateur" => $prevision->getIdutilisateur()
-				]);
+                $utilisateur = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Utilisateurs')->findOneBy([
+                    "id" => $prevision->getIdutilisateur()
+                ]);
 
-				$interdictionsStatut = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Interdictionaffectation')->findBy([
-					"idstatut" => $archiveUtilisateurs->getIdstatut()
-				]);
+                if (empty($utilisateur)) {
+                    echo "Cet utilisateur n'existe pas.";
+                    $UtilisateurCoursValides = false;
+                }
 
-				foreach ($interdictionsStatut as $interdiction) {
-					if ($interdiction->getIdtypecours() == $cours->getIdtypecours()) {
-						$statutAutorise = false;
-						break;
-					}
-				}
+                if ($UtilisateurCoursValides) {
 
-				if ($form->get("ajouter")->isClicked()) {
-					if ($statutAutorise) {
-						$entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees')->findBy([
-							"idutilisateur" => $prevision->getIdutilisateur(),
-							"idcours" => $prevision->getIdcours()
-						]);
+                    // On réaffecte les valeurs à l'entité car l'autocomplétion renvoie des tableaux
 
-						$countHeures = $prevision->getNbheures();
-						foreach ($entities as $entity) {
-							$countHeures += $entity->getNbheures();
-							$em->remove($entity);
-							$em->flush();
-						}
+                    $prevision->setIdutilisateur($prevision->getIdutilisateur()->getId());
+                    $prevision->setIdcours($cours->getId());
 
-						$limiteHeures = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Limitenbcours')->findOneBy([
-							"idstatut" => $archiveUtilisateurs->getIdstatut(),
-							"idtypecours" => $cours->getIdtypecours()
-						]);
+                    // Si le formulaire est de type "Ajout"
 
-						if (!empty($limiteHeures)) {
-							if ($countHeures > $limiteHeures->getNbheures()) {
-								$countHeures = $limiteHeures->getNbheures();
-								echo "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".";
-							}
-						}
+                    $statutAutorise = true;
 
-						$prevision->setNbheures($countHeures);
+                    $archiveUtilisateurs = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Archiveutilisateurs')->findOneBy([
+                        "idutilisateur" => $prevision->getIdutilisateur()
+                    ]);
 
-						$em->persist($prevision);
-						$em->flush();
+                    $interdictionsStatut = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Interdictionaffectation')->findBy([
+                        "idstatut" => $archiveUtilisateurs->getIdstatut()
+                    ]);
 
-						echo "Vous venez d'affecter ".$prevision->getNbheures()." heures dans le cours ".$prevision->getIdcours()." à l'utilisateur ".$prevision->getIdutilisateur().".";
-					}
-					else {
-						echo "Impossible d'affecter ce type de cours au statut de cet utilisateur.";
-					}
-				}
+                    foreach ($interdictionsStatut as $interdiction) {
+                        if ($interdiction->getIdtypecours() == $cours->getIdtypecours()) {
+                            $statutAutorise = false;
+                            break;
+                        }
+                    }
 
-				// Si le formulaire est de type "Modification"
+                    if ($form->get("ajouter")->isClicked()) {
+                        if ($statutAutorise) {
+                            $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees')->findBy([
+                                "idutilisateur" => $prevision->getIdutilisateur(),
+                                "idcours" => $prevision->getIdcours()
+                            ]);
 
-				else if ($form->get("modifier")->isClicked()) {
-					if ($statutAutorise) {
-						$entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees')->findBy([
-							"idutilisateur" => $prevision->getIdutilisateur(),
-							"idcours" => $prevision->getIdcours()
-						]);
+                            $countHeures = $prevision->getNbheures();
+                            foreach ($entities as $entity) {
+                                $countHeures += $entity->getNbheures();
+                                $em->remove($entity);
+                                $em->flush();
+                            }
 
-						foreach ($entities as $entity) {
-							$em->remove($entity);
-							$em->flush();
-						}
+                            $limiteHeures = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Limitenbcours')->findOneBy([
+                                "idstatut" => $archiveUtilisateurs->getIdstatut(),
+                                "idtypecours" => $cours->getIdtypecours()
+                            ]);
 
-						$limiteHeures = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Limitenbcours')->findOneBy([
-							"idstatut" => $archiveUtilisateurs->getIdstatut(),
-							"idtypecours" => $cours->getIdtypecours()
-						]);
+                            if (!empty($limiteHeures)) {
+                                if ($countHeures > $limiteHeures->getNbheures()) {
+                                    $countHeures = $limiteHeures->getNbheures();
+                                    echo "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".";
+                                }
+                            }
 
-						if (!empty($limiteHeures)) {
-							if ($prevision->getNbheures() > $limiteHeures->getNbheures()) {
-								$prevision->setNbheures($limiteHeures->getNbheures());
-								echo "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".";
-							}
-						}
+                            $prevision->setNbheures($countHeures);
 
-						$em->persist($prevision);
-						$em->flush();
+                            $em->persist($prevision);
+                            $em->flush();
 
-						echo "Vous venez de modifier : ".$prevision->getNbheures()." heures dans le cours ".$prevision->getIdcours()." à l'utilisateur ".$prevision->getIdutilisateur().".";
-					}
-					else {
-						echo "Impossible d'affecter ce type de cours au statut de cet utilisateur.";
-					}
-				}
+                            echo "L'utilisateur ".$prevision->getIdutilisateur()." dispose désormais de ".$prevision->getNbheures()." heures dans le cours ".$prevision->getIdcours().".";
+                        }
+                        else {
+                            echo "Impossible d'affecter ce type de cours au statut de cet utilisateur.";
+                        }
+                    }
 
-				// Si le formulaire est de type "Suppression"
+                    // Si le formulaire est de type "Modification"
 
-				else if ($form->get("supprimer")->isClicked()) {
-					$entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees')->findBy([
-						"idutilisateur" => $prevision->getIdutilisateur(),
-						"idcours" => $prevision->getIdcours()
-					]);
+                    else if ($form->get("modifier")->isClicked()) {
+                        if ($statutAutorise) {
+                            $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees')->findBy([
+                                "idutilisateur" => $prevision->getIdutilisateur(),
+                                "idcours" => $prevision->getIdcours()
+                            ]);
 
-					if (!empty($entities)) {
-						foreach ($entities as $entity) {
-							$em->remove($entity);
-							$em->flush();
-						}
+                            foreach ($entities as $entity) {
+                                $em->remove($entity);
+                                $em->flush();
+                            }
 
-						echo "Vous venez de supprimer le cours ".$prevision->getIdcours()." à l'utilisateur ".$prevision->getIdutilisateur().".";
-					}
-					else {
-						echo "Aucune heure n'était affectée à l'utilisateur ".$prevision->getIdutilisateur()." avec le cours ".$prevision->getIdcours().".";
-					}
-				}
-			}
-		}
+                            $limiteHeures = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Limitenbcours')->findOneBy([
+                                "idstatut" => $archiveUtilisateurs->getIdstatut(),
+                                "idtypecours" => $cours->getIdtypecours()
+                            ]);
 
-		return $this->render("PrevisionnelBundle:Prevision:prevision.html.twig", array(
-			"form" => $form->createView(),
-		));
-	}
+                            if (!empty($limiteHeures)) {
+                                if ($prevision->getNbheures() > $limiteHeures->getNbheures()) {
+                                    $prevision->setNbheures($limiteHeures->getNbheures());
+                                    echo "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".";
+                                }
+                            }
 
-	// ==================== Autocomplete functions ==================== //
+                            $em->persist($prevision);
+                            $em->flush();
 
-	// Autocomplete : Nom du professeur
+                            echo "Vous venez de modifier : ".$prevision->getNbheures()." heures dans le cours ".$prevision->getIdcours()." à l'utilisateur ".$prevision->getIdutilisateur().".";
+                        }
+                        else {
+                            echo "Impossible d'affecter ce type de cours au statut de cet utilisateur.";
+                        }
+                    }
 
-	public function searchUtilisateursAction(Request $request)
-	{
-		$nom = $request->query->get('term');
-		$nom = strtolower($nom);
-		$nom = explode(" ", $nom, 2);
+                    // Si le formulaire est de type "Suppression"
 
-		if (count($nom) == 2) {
-			$results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Utilisateurs')->createQueryBuilder('u')
-				->where('LOWER(u.nom) LIKE :nom')
-				->orWhere('LOWER(u.prenom) LIKE :prenom')
-				->setParameter('nom', '%'.$nom[0].'%')
-				->setParameter('prenom', '%'.$nom[1].'%')
-				->getQuery()
-				->getResult();
-		}
-		else {
-			$results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Utilisateurs')->createQueryBuilder('u')
-				->where('LOWER(u.nom) LIKE :nom')
-				->setParameter('nom', '%'.$nom[0].'%')
-				->getQuery()
-				->getResult();
-		}
+                    else if ($form->get("supprimer")->isClicked()) {
+                        $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees')->findBy([
+                            "idutilisateur" => $prevision->getIdutilisateur(),
+                            "idcours" => $prevision->getIdcours()
+                        ]);
 
-		return $this->render('PrevisionnelBundle:Prevision:autocomplete-professeur.html.twig', ['results' => $results]);
-	}
+                        if (!empty($entities)) {
+                            foreach ($entities as $entity) {
+                                $em->remove($entity);
+                                $em->flush();
+                            }
 
-	// Autocomplete : Nom du professeur
+                            echo "Vous venez de supprimer le cours ".$prevision->getIdcours()." à l'utilisateur ".$prevision->getIdutilisateur().".";
+                        }
+                        else {
+                            echo "Aucune heure n'était affectée à l'utilisateur ".$prevision->getIdutilisateur()." avec le cours ".$prevision->getIdcours().".";
+                        }
+                    }
+                }
+            }
 
-	public function getUtilisateursAction($id = null)
-	{
-		return new Response($id);
-	}
+            return $this->render("PrevisionnelBundle:Prevision:prevision.html.twig", array(
+                "form" => $form->createView(),
+                "utilisateur" => $utilisateur,
+                "roles" => $listeRoles,
+                "annee" => $anneeScolaire
+            ));
+        }
+        else {
+            return $this->redirectToRoute("previsionneluser_accueil");
+        }
+    }
 
-	// Autocomplete : Nom de l'UE
+    // ==================== Autocomplete functions ==================== //
 
-	public function searchUeAction(Request $request)
-	{
-		$ue = $request->query->get('term');
-		$ue = strtolower($ue);
+    // Autocomplete : Nom du professeur
 
-		$results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Ue')->createQueryBuilder('u')
-			->where('LOWER(u.nom) LIKE :nom')
-			->setParameter('nom', '%'.$ue.'%')
-			->getQuery()
-			->getResult();
+    public function searchUtilisateursAction(Request $request)
+    {
+        $nom = $request->query->get('term');
+        $nom = strtolower($nom);
+        $nom = explode(" ", $nom, 2);
 
-		return $this->render('PrevisionnelBundle:Prevision:autocomplete-ue.html.twig', ['results' => $results]);
-	}
+        if (count($nom) == 2) {
+            $results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Utilisateurs')->createQueryBuilder('u')
+                ->where('LOWER(u.nom) LIKE :nom')
+                ->orWhere('LOWER(u.prenom) LIKE :prenom')
+                ->setParameter('nom', '%'.$nom[0].'%')
+                ->setParameter('prenom', '%'.$nom[1].'%')
+                ->getQuery()
+                ->getResult();
+        }
+        else {
+            $results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Utilisateurs')->createQueryBuilder('u')
+                ->where('LOWER(u.nom) LIKE :nom')
+                ->setParameter('nom', '%'.$nom[0].'%')
+                ->getQuery()
+                ->getResult();
+        }
 
-	// Autocomplete : Nom de l'UE
+        return $this->render('PrevisionnelBundle:Prevision:autocomplete-professeur.html.twig', ['results' => $results]);
+    }
 
-	public function getUeAction($id = null)
-	{
-		return new Response($id);
-	}
+    // Autocomplete : Nom du professeur
 
-	// Autocomplete : Nom du type de cours
+    public function getUtilisateursAction($id = null)
+    {
+        return new Response($id);
+    }
 
-	public function searchTypecoursAction(Request $request)
-	{
-		$typecours = $request->query->get('term');
-		$typecours = strtolower($typecours);
+    // Autocomplete : Nom de l'UE
 
-		$results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Typecours')->createQueryBuilder('t')
-			->where('LOWER(t.nom) LIKE :nom')
-			->setParameter('nom', '%'.$typecours.'%')
-			->getQuery()
-			->getResult();
+    public function searchUeAction(Request $request)
+    {
+        $ue = $request->query->get('term');
+        $ue = strtolower($ue);
 
-		return $this->render('PrevisionnelBundle:Prevision:autocomplete-typecours.html.twig', ['results' => $results]);
-	}
+        $results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Ue')->createQueryBuilder('u')
+            ->where('LOWER(u.nom) LIKE :nom')
+            ->setParameter('nom', '%'.$ue.'%')
+            ->getQuery()
+            ->getResult();
 
-	// Autocomplete : Nom du type de cours
+        return $this->render('PrevisionnelBundle:Prevision:autocomplete-ue.html.twig', ['results' => $results]);
+    }
 
-	public function getTypecoursAction($id = null)
-	{
-		return new Response($id);
-	}
+    // Autocomplete : Nom de l'UE
+
+    public function getUeAction($id = null)
+    {
+        return new Response($id);
+    }
+
+    // Autocomplete : Nom du type de cours
+
+    public function searchTypecoursAction(Request $request)
+    {
+        $typecours = $request->query->get('term');
+        $typecours = strtolower($typecours);
+
+        $results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Typecours')->createQueryBuilder('t')
+            ->where('LOWER(t.nom) LIKE :nom')
+            ->setParameter('nom', '%'.$typecours.'%')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('PrevisionnelBundle:Prevision:autocomplete-typecours.html.twig', ['results' => $results]);
+    }
+
+    // Autocomplete : Nom du type de cours
+
+    public function getTypecoursAction($id = null)
+    {
+        return new Response($id);
+    }
 }

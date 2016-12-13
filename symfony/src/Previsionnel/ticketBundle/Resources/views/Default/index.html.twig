@@ -18,21 +18,18 @@
         <div class="container">
             <h1>Envoi Ticket</h1>
 
-            <div class="row">
+            <div class="row" style="margin-top: 8%">
 
                 <section class="col-sm-8 col-sm-offset-2">
-
-                    {{  form_widget(form) }}
-                    <button type="submit"> ajouter </button>
-
-                    {{ form_end(form) }}
 
                     {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
                     {{ form_row(form.motif) }}
                     {{ form_row(form.message) }}
-                    <div class=""> {{ form_row(form.date) }}</div>
-                    {{ form_row(form.etat) }}
+                    {{ form_row(form.date) }}
+                    <div class="hidden" >
+                        {{ form_row(form.etat) }}
                     {{ form_row(form.IdExpediteur) }}
+                    </div>
                     {{ form_row(form.idUE) }}
                     <button class="btn btn-success" type="submit"> envoyer </button>
                     {{ form_end(form) }}

@@ -18,9 +18,13 @@ security:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
+    main_login:
+        # Cette expression régulière permet de prendre /login (mais pas /login_check !)
+        pattern:   ^/login$
+        anonymous: true # On autorise alors les anonymes sur ce pare-feu
     main:
       pattern:      ^/
-      anonymous:    true
+      anonymous:    false
       provider:     in_memory
       form_login:
         login_path: login

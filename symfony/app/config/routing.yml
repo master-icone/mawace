@@ -6,6 +6,10 @@ previsionnel_user:
     resource: "@PrevisionnelUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+previsionnel_tickets:
+    resource: "@mawaceticketBundle/Resources/config/routing.yml"
+    prefix:   /
+    
 mawace_page_professeur:
     resource: "@MAWACEPageProfBundle/Resources/config/routing.yml"
     prefix:   /
