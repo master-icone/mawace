@@ -57,9 +57,8 @@ class ticket
      *
      * @ORM\Column(name="etat", type="string", length=1)
      *
-     * @Assert\NotBlank(message="champ obligatoire")
      */
-    private $etat;
+    private $etat = 'C';
 
     /**
      * @var int
