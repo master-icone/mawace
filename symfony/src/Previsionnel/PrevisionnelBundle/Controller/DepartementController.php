@@ -27,33 +27,47 @@ class DepartementController extends Controller
 		$em = $this->getDoctrine()->getManager();
 
 		if ($form->get("ajouter")->isClicked()) {
-			$departements->setNom($form->get('nom')->getData());
+			$departements->setNom($form->get('nouveauNom')->getData());
 
 			$em->persist($departements);
 			$em->flush();
+			
+			$this->addFlash(
+				'notice',
+				'Département ajouté'
+			);
+			return $this->redirectToRoute('previsionnel_departement');
+
 		}
 
 
 
 		if ($form->get("supprimer")->isClicked()){
-			$entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findBy([
-				"nom" => $form->get('nom')->getData()
+			$entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
+				"nom" => $form->get('nom')->getData()->getId()
 			]);
 		
 			if (!empty($entities)) {
 				foreach ($entities as $entity) {
 					$em->remove($entity);
-					$em->flush();
+					$em->flush();	        
 				}
+				$this->addFlash(
+					'notice',
+        			'Département supprimé'
+				);
+				return $this->redirectToRoute('previsionnel_departement');
 			}
 			else{
 				echo "Ce departement n'existe pas";
 			}
 		}
 
+
+
 		if($form->get("modifier")->isClicked()){
-			$entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findBy([
-				"nom" => $form->get('nom')->getData()
+			$entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
+				"nom" => $form->get('nom')->getData()->getId()
 			]);
 
 			if(!empty($entities)){
@@ -61,7 +75,15 @@ class DepartementController extends Controller
 					$entity->setNom($form->get('nouveauNom')->getData());
 				}
 			}
+
 			$em->flush();
+
+        $this->addFlash(
+            'notice',
+            'Département modifié'
+        );
+
+			return $this->redirectToRoute('previsionnel_departement');
 
 		}
 
@@ -70,23 +92,13 @@ class DepartementController extends Controller
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
 	$content = $this
 	->get('templating')
 	->render('PrevisionnelBundle:Departement:index.html.twig',array('form'=> $form->createView()));
 	
 	return new Response($content);
-  }
+	}
+
 
 
 

@@ -17,12 +17,6 @@ class DepartementsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("nom", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
-                "label" => "Nom departement :",
-                "attr" => ["placeholder" => "Nom Departement"],
-                "class" => "PrevisionnelBundle:Departements",
-            ])
-
 
             ->add("nouveauNom", TextType::class, [
                 "mapped" => false,
@@ -32,10 +26,23 @@ class DepartementsType extends AbstractType
             ])
 
 
+
+
             ->add("ajouter", SubmitType::class, [
                 "label" => "Ajouter",
                 "attr" => ["class" => "btn btn-success pull-left"],
             ])
+
+
+
+
+            ->add("nom", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
+                "attr" => ["placeholder" => "Ancien nom"],
+                "class" => "PrevisionnelBundle:Departements",
+                "required" => false,
+            ])
+
+
 
             ->add("modifier", SubmitType::class, [
                 "label" => "Modifier",
@@ -43,10 +50,13 @@ class DepartementsType extends AbstractType
             ])
 
 
+
             ->add("supprimer", SubmitType::class, [
                 "label" => "Supprimer",
                 "attr" => ["class" => "btn btn-danger pull-left"],
             ])
+
+
 
             ;
     }

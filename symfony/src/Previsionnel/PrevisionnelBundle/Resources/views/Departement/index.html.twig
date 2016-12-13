@@ -17,8 +17,17 @@
   <body>
 
     	<div class="container">
-    		<h1>Gestion Département</h1>
 
+
+			{% for flash_message in app.session.flashBag.get('notice') %}
+			    <div class="flash-notice">
+			        {{ flash_message }}
+			    </div>
+			{% endfor %}
+
+
+
+    		<h1>Gestion Département</h1>
 			<div class="row">
 				<nav class="col-sm-2 col-sm-offset-10">
 					<ul class="nav nav-pills nav-stacked fixed">
