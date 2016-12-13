@@ -62,7 +62,7 @@ class PrevisionController extends Controller
                 ]);
 
                 if (empty($cours)) {
-                    echo "Ce cours n'existe pas.";
+                    $this->addFlash("danger", "Ce cours n'existe pas.");
                     $UtilisateurCoursValides = false;
                 }
 
@@ -73,7 +73,7 @@ class PrevisionController extends Controller
                 ]);
 
                 if (empty($utilisateur)) {
-                    echo "Cet utilisateur n'existe pas.";
+                    $this->addFlash("danger", "Cet utilisateur n'existe pas.");
                     $UtilisateurCoursValides = false;
                 }
 
@@ -125,7 +125,7 @@ class PrevisionController extends Controller
                             if (!empty($limiteHeures)) {
                                 if ($countHeures > $limiteHeures->getNbheures()) {
                                     $countHeures = $limiteHeures->getNbheures();
-                                    echo "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".";
+                                    $this->addFlash("warning", "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".");
                                 }
                             }
 
@@ -133,11 +133,11 @@ class PrevisionController extends Controller
 
                             $em->persist($prevision);
                             $em->flush();
-
-                            echo "L'utilisateur ".$prevision->getIdutilisateur()." dispose désormais de ".$prevision->getNbheures()." heures dans le cours ".$prevision->getIdcours().".";
+                            
+                            $this->addFlash("success", "L'utilisateur dispose désormais de ".$prevision->getNbheures()." heures dans le cours sélectionné.");
                         }
                         else {
-                            echo "Impossible d'affecter ce type de cours au statut de cet utilisateur.";
+                            $this->addFlash("danger", "Impossible d'affecter ce type de cours au statut de cet utilisateur.");
                         }
                     }
 
@@ -163,17 +163,17 @@ class PrevisionController extends Controller
                             if (!empty($limiteHeures)) {
                                 if ($prevision->getNbheures() > $limiteHeures->getNbheures()) {
                                     $prevision->setNbheures($limiteHeures->getNbheures());
-                                    echo "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".";
+                                    $this->addFlash("warning", "Nombre d'heures trop élevé pour ce statut, le nombre d'heures affecté a été limité à ".$limiteHeures->getNbheures().".");
                                 }
                             }
 
                             $em->persist($prevision);
                             $em->flush();
-
-                            echo "Vous venez de modifier : ".$prevision->getNbheures()." heures dans le cours ".$prevision->getIdcours()." à l'utilisateur ".$prevision->getIdutilisateur().".";
+                            
+                            $this->addFlash("success", "L'utilisateur dispose désormais de ".$prevision->getNbheures()." heures dans le cours sélectionné.");
                         }
                         else {
-                            echo "Impossible d'affecter ce type de cours au statut de cet utilisateur.";
+                            $this->addFlash("danger", "Impossible d'affecter ce type de cours au statut de cet utilisateur.");
                         }
                     }
 
@@ -191,10 +191,10 @@ class PrevisionController extends Controller
                                 $em->flush();
                             }
 
-                            echo "Vous venez de supprimer le cours ".$prevision->getIdcours()." à l'utilisateur ".$prevision->getIdutilisateur().".";
+                            $this->addFlash("success", "La suppression du cours à l'utilisateur s'est bien réalisée");
                         }
                         else {
-                            echo "Aucune heure n'était affectée à l'utilisateur ".$prevision->getIdutilisateur()." avec le cours ".$prevision->getIdcours().".";
+                            $this->addFlash("danger", "Aucune heure n'était affectée à cet utilisateur pour le cours sélectionné");
                         }
                     }
                 }

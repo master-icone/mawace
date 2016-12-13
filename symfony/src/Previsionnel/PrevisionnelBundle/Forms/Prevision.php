@@ -45,7 +45,7 @@ class Prevision extends AbstractType
 			])
 			->add("supprimer", SubmitType::class, [
                 "label" => "Supprimer",
-                "attr" => ["class" => "btn btn-danger pull-left"],
+                "attr" => ["class" => "btn btn-danger"],
 			])
 			;
 	}
