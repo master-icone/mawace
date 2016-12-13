@@ -1,0 +1,4 @@
+[{% for typecours in results -%}
+{{ {id: typecours.id, label: typecours.nom , value: typecours.nom}|json_encode|raw }}
+{%- if not loop.last %},{% endif -%}
+{%- endfor %}]

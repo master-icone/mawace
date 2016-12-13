@@ -29,4 +29,16 @@ previsionnel_get_typecours:
 secretaire_homepage:
     path:     /secretaire
     defaults: { _controller: PrevisionnelBundle:Secretaire:index }
-    
+
+previsionnel_departement:
+    path: /departement
+    defaults: { _controller: PrevisionnelBundle:Departement:index}
+
+
+previsionnel_search_departement:
+    path:     /prevision/search-departement
+    defaults: { _controller: PrevisionnelBundle:Departement:searchDepartement }
+
+previsionnel_get_departement:
+    path:     /prevision/get-departement/{id}
+    defaults: { _controller: PrevisionnelBundle:Departement:getDepartement }

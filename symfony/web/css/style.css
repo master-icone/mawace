@@ -39,12 +39,26 @@ table.table thead {
 
 ul {
 	margin-top: 20px;
+    margin-bottom: 0;
 }
 
 .ue-list li {
 	text-align:center;
 	border:1px solid;
 	border-radius: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+section h1, section h2, section h3, section h4, section h5, section h6 {
+    font-weight: bold;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 @media screen and (max-width: 767px) {

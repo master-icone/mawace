@@ -20,7 +20,7 @@ class AppKernel extends Kernel
 			new Previsionnel\UserBundle\PrevisionnelUserBundle(),
 			new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
 			new MAWACE\PageProfBundle\MAWACEPageProfBundle(),
-			new Ob\HighchartsBundle\ObHighchartsBundle(),
+            new Ob\HighchartsBundle\ObHighchartsBundle(),
             new Previsionnel\ticketBundle\mawaceticketBundle(),
 		];
 
@@ -53,4 +53,10 @@ class AppKernel extends Kernel
 	{
 		$loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
 	}
+
+    public function __construct($environment, $debug)
+    {
+        date_default_timezone_set( 'Europe/Paris' );
+        parent::__construct($environment, $debug);
+    }
 }

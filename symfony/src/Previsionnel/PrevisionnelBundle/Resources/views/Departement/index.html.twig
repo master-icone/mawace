@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Module de prévision</title>
-		{% block stylesheets %}
+  <head>
+    <title>Département</title>
+    		{% block stylesheets %}
 		<!-- Bootstrap core CSS -->
 		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 		<!-- Bootstrap theme -->
@@ -12,34 +12,50 @@
 		<!-- Custom style -->
 		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 		{% endblock %}
-	</head>
-	<body>
+    <link rel="stylesheet" href="{{ asset('bundles/style.css') }}" type="text/css" />
+  </head>
+  <body>
 
-		<div class="container">
-			<h1>Module de prévision</h1>
-			
+    	<div class="container">
+    		<h1>Gestion Département</h1>
+
 			<div class="row">
 				<nav class="col-sm-2 col-sm-offset-10">
 					<ul class="nav nav-pills nav-stacked fixed">
                         <li><a href="page-professeur/2016-2017/1">Résumé</a></li>
                         <li><a href="secretaire">Secrétaire</a></li>
-                        <li class="active"><a href="prevision">Prévision</a></li>
-                        <li><a href="departement">Département</a></li>
+                        <li><a href="prevision">Prévision</a></li>
+                        <li class="active"><a href="departement">Département</a></li>
                         <li><a href="logout">Déconnexion</a></li>
 					</ul>
 				</nav>
 			</div>
-			
-			<div class="row">
-				<section class="col-sm-8 col-sm-offset-2">
-					{{ form_start(form) }}
-					{{ form_widget(form) }}
-					{{ form_end(form) }}
-				</section>
-			</div>
-		</div>
 
-		{% block javascripts %}
+
+
+
+
+
+    		<div class="row">
+					<section class="col-sm-8 col-sm-offset-2">
+						{{ form_start(form) }}
+						{{ form_widget(form) }}
+						{{ form_end(form) }}
+					</section>
+    		</div>
+    	</div>
+
+
+
+
+
+
+
+
+
+
+
+    			{% block javascripts %}
 		<!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -48,23 +64,14 @@
 		<!-- Autocompleter calls -->
 		<script type="text/javascript">
 
-			$('#prevision_idutilisateur').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-utilisateurs') }}",
-                url_get: "{{ absolute_url('prevision/get-utilisateurs') }}"
+			$('#previsionnel_previsionnelbundle_departements_nom').autocompleter({
+                url_list: "{{ absolute_url('prevision/search-departement') }}",
+                url_get: "{{ absolute_url('prevision/get-departement') }}"
 			});
 
-			$('#prevision_ue').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-ue') }}",
-                url_get: "{{ absolute_url('prevision/get-ue') }}"
-			});
 
-			$('#prevision_typecours').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-typecours') }}",
-                url_get: "{{ absolute_url('prevision/get-typecours') }}"
-			});
 
 		</script>
 		{% endblock %}
-
-	</body>
+  </body>
 </html>
