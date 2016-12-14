@@ -9,15 +9,16 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
 
 
     </head>
     <body>
 
-        {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
-        <div class="container">
-            <h1>Envoi Ticket</h1>
 
+        <div class="container">
+
+            <h1>Envoi Ticket</h1>
             <div class="row" style="margin-top: 8%">
 
                 <section class="col-sm-8 col-sm-offset-2">
@@ -27,18 +28,31 @@
                     {{ form_row(form.message) }}
                     {{ form_row(form.date) }}
                     <div class="hidden" >
-                        {{ form_row(form.etat) }}
-                    {{ form_row(form.IdExpediteur) }}
+                        {{ form_row(form.etat,{'value':'C'}) }}
+                        {{ form_row(form.IdExpediteur,{value:  idUser } ) }}
                     </div>
+
                     {{ form_row(form.idUE) }}
                     <button class="btn btn-success" type="submit"> envoyer </button>
+
                     {{ form_end(form) }}
                 </section>
             </div>
             {% block javascripts %}
+
             <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
             <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+                <!-- Autocompleter calls -->
+                <script type="text/javascript">
+                    $('#mawace_ticketbundle_ticket_idUE').autocompleter({
+                        url_list: "{{ absolute_url('prevision/search-ue') }}",
+                        url_get: "{{ absolute_url('prevision/get-ue') }}"
+                    });
+                </script>
+
             {% endblock %}
         </div>
     </body>
