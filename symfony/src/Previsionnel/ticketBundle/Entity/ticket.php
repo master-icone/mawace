@@ -74,7 +74,7 @@ class ticket
      *
      * @ORM\Column(name="idUE", type="integer")
      *
-     * @Assert\NotBlank(message="champ obligatoire")
+     *
      */
     private $idUE;
 
