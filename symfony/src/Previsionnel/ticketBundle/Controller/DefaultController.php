@@ -40,7 +40,7 @@ class DefaultController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             //enregistrer en BDD
             $em = $this->getDoctrine()->getManager();
-
+            $ticket->setIdUE($form->get('idUE')->getData()->getId());
             $em->persist($ticket);
 
             $em->flush();
@@ -61,7 +61,7 @@ class DefaultController extends Controller
         $ue = $request->query->get('term');
         $ue = strtolower($ue);
 
-        $results = $this->getDoctrine()->getRepository('ticketBundle:Ue')->createQueryBuilder('u')
+        $results = $this->getDoctrine()->getRepository('mawaceticketBundle:Ue')->createQueryBuilder('u')
             ->where('LOWER(u.nom) LIKE :nom')
             ->setParameter('nom', '%'.$ue.'%')
             ->getQuery()
