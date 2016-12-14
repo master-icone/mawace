@@ -2,3 +2,8 @@ previsionneluser_accueil:
     path: /accueil
     defaults:
         _controller: PrevisionnelUserBundle:Accueil:index
+
+previsionneluser_index:
+    path: /index
+    defaults:
+        _controller: PrevisionnelUserBundle:Index:index

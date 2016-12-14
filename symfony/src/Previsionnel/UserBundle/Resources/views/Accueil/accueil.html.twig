@@ -64,28 +64,7 @@
         {% block javascripts %}
         <!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <!-- Autocompleter calls -->
-        <script type="text/javascript">
-
-            $('#prevision_idutilisateur').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-utilisateurs') }}",
-                url_get: "{{ absolute_url('prevision/get-utilisateurs') }}"
-            });
-
-            $('#prevision_ue').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-ue') }}",
-                url_get: "{{ absolute_url('prevision/get-ue') }}"
-            });
-
-            $('#prevision_typecours').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-typecours') }}",
-                url_get: "{{ absolute_url('prevision/get-typecours') }}"
-            });
-
-        </script>
         {% endblock %}
 
     </body>
