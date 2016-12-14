@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Module de prévision</title>
-		{% block stylesheets %}
-		<!-- Bootstrap core CSS -->
-		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
-		<!-- Autocompleter theme -->
-		<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
-		<!-- Custom style -->
-		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-		{% endblock %}
-	</head>
-	<body>
+    <head>
+        <title>Module de prévision</title>
+        {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
+        <!-- Autocompleter theme -->
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+        <!-- Custom style -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
 
-		<div class="container">
-			<h1>Module de prévision</h1>
-			
-			<div class="row">
-				<nav class="col-sm-2 col-sm-offset-10">
-					<ul class="nav nav-pills nav-stacked fixed">
-                        <li><a href="accueil">Accueil</a></li>
-                        {% if utilisateur.id is defined and annee is defined and "Résumé des cours" in roles %}
-                        <li><a href="page-professeur/{{ annee }}/{{ utilisateur.id }}">Résumé</a></li>
-                        {% endif %}
-                        {% if "Secrétaire" in roles %}
-                        <li><a href="secretaire">Secrétaire</a></li>
-                        {% endif %}
-                        {% if "Affectation d'heures de cours" in roles %}
-                        <li class="active"><a href="prevision">Prévision</a></li>
-                        {% endif %}
-                        {% if "Affectation des départements" in roles %}
-                        <li><a href="departement">Départements</a></li>
-                        {% endif %}
-                        {% if "Voir les tickets" in roles %}
-                        <li><a href="tickets">Tickets</a></li>
-                        {% endif %}
-                        <li><a href="logout">Déconnexion</a></li>
-					</ul>
-				</nav>
-			</div>
-			
-			<div class="row">
-				<section class="col-sm-8 col-sm-offset-2">
+        <div class="container">
+            <h1>Module de prévision</h1>
+
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-10">
+                    <nav>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="accueil">Accueil</a></li>
+                            {% if utilisateur.id is defined and annee is defined and "Résumé des cours" in roles %}
+                            <li><a href="page-professeur/{{ annee }}/{{ utilisateur.id }}">Résumé</a></li>
+                            {% endif %}
+                            {% if "Secrétaire" in roles %}
+                            <li><a href="secretaire">Secrétaire</a></li>
+                            {% endif %}
+                            {% if "Affectation d'heures de cours" in roles %}
+                            <li class="active"><a href="prevision">Prévision</a></li>
+                            {% endif %}
+                            {% if "Affectation des départements" in roles %}
+                            <li><a href="departement">Départements</a></li>
+                            {% endif %}
+                            {% if "Voir les tickets" in roles %}
+                            <li><a href="tickets">Tickets</a></li>
+                            {% endif %}
+                            <li><a href="logout">Déconnexion</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row">
+                <section class="col-sm-8 col-sm-offset-2">
                     {% for flash_message in app.session.flashBag.get('success') %}
                     <div class="alert alert-success">
                         <strong>Succès !</strong> {{ flash_message }}
@@ -59,39 +61,39 @@
                         <strong>Échec !</strong> {{ flash_message }}
                     </div>
                     {% endfor %}
-					{{ form_start(form) }}
-					{{ form_widget(form) }}
-					{{ form_end(form) }}
-				</section>
-			</div>
-		</div>
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </section>
+            </div>
+        </div>
 
-		{% block javascripts %}
-		<!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-		<script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
-		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-		<!-- Autocompleter calls -->
-		<script type="text/javascript">
+        {% block javascripts %}
+        <!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <!-- Autocompleter calls -->
+        <script type="text/javascript">
 
-			$('#prevision_idutilisateur').autocompleter({
+            $('#prevision_idutilisateur').autocompleter({
                 url_list: "{{ absolute_url('prevision/search-utilisateurs') }}",
                 url_get: "{{ absolute_url('prevision/get-utilisateurs') }}"
-			});
+            });
 
-			$('#prevision_ue').autocompleter({
+            $('#prevision_ue').autocompleter({
                 url_list: "{{ absolute_url('prevision/search-ue') }}",
                 url_get: "{{ absolute_url('prevision/get-ue') }}"
-			});
+            });
 
-			$('#prevision_typecours').autocompleter({
+            $('#prevision_typecours').autocompleter({
                 url_list: "{{ absolute_url('prevision/search-typecours') }}",
                 url_get: "{{ absolute_url('prevision/get-typecours') }}"
-			});
+            });
 
-		</script>
-		{% endblock %}
+        </script>
+        {% endblock %}
 
-	</body>
+    </body>
 </html>

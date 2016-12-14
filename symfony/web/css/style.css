@@ -1,15 +1,26 @@
+body {
+    background: url("http://www.wallpaper4k.com/wp/textures/WPKSZMKG.jpg");
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    position: fixed;
+}
+
+nav > ul {
+    margin: 0;
+}
+
 h1 {
 	text-align: center;
 }
 
 nav .nav li {
 	text-align: center;
-}
-
-.fixed {
-    position: fixed;
-	margin-top: 10px;
-	margin-bottom: 10px;
 }
 
 section {
