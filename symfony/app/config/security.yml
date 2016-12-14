@@ -23,7 +23,7 @@ security:
         pattern:   ^/login$
         anonymous: true # On autorise alors les anonymes sur ce pare-feu
     index:
-        pattern:   ^/
+        pattern:   ^/index
         anonymous: true
     main:
       pattern:      ^/

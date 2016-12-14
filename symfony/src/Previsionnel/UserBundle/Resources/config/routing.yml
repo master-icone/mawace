@@ -4,6 +4,6 @@ previsionneluser_accueil:
         _controller: PrevisionnelUserBundle:Accueil:index
 
 previsionneluser_index:
-    path: /
+    path: /index
     defaults:
         _controller: PrevisionnelUserBundle:Index:index
