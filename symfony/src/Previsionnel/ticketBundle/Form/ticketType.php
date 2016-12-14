@@ -18,8 +18,8 @@ class ticketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-		->add('motif',TextType::class)
-		->add('message',TextareaType::class)
+		->add('motif',TextType::class,["attr" => ["placeholder" => "motif"]])
+		->add('message',TextareaType::class,["attr" => ["placeholder" => "message"]])
 		->add('date',DateType::class)
 		->add('etat',TextType::class)
 		->add('IdExpediteur',TextType::class)
@@ -27,7 +27,7 @@ class ticketType extends AbstractType
             "class" => "ticketBundle:ticket",
             "label" => "UE : ",
             "mapped" => false,
-            "attr" => ["placeholder" => "UE"],]);
+            "attr" => ["placeholder" => "UE"]]);
     }
     
     /**
