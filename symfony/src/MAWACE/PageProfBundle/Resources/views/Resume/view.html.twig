@@ -41,7 +41,7 @@
 					</ul>
 				</nav>
 			</div>
-
+			<div class="row"><button id="cmd">Générer PDF</button></div>
 			<div class="row">
 				<section class="col-sm-8 col-sm-offset-2">
 					<article class="row">
@@ -78,7 +78,16 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://code.highcharts.com/4.1.8/highcharts.js"></script>
 	<script src="https://code.highcharts.com/4.1.8/modules/exporting.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
+	<script src="http://cdn.uriit.ru/jsPDF/libs/adler32cs.js/adler32cs.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+	<script src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.addimage.js"></script>
+	<script src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.standard_fonts_metrics.js"></script>
+	<script src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.split_text_to_size.js"></script>
+	<script src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.from_html.js"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/export.js') }}"></script>
+	<script src="{{ asset('js/html2canvas.js') }}"></script>
 	<script type="text/javascript">
 		{{ chart(linechart) }}
 	</script>
