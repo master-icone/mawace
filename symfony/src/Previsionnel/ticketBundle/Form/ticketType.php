@@ -28,12 +28,7 @@ class ticketType extends AbstractType
             "class" => "mawaceticketBundle:ticket",
             "label" => "UE : ",
             "mapped" => false,
-            "attr" => ["placeholder" => "UE"]])
-
-        ->add("listeTicket", SubmitType::class, [
-        "label" => "liste Tickets",
-        "attr" => ["class" => "btn btn-primary"],
-    ]);
+            "attr" => ["placeholder" => "UE"]]);
 
 
     }

@@ -36,6 +36,7 @@
                         {% endif %}
                         {% if "Voir les tickets" in roles %}
                         <li class="active"><a href="tickets">Tickets</a></li>
+                        <li><a href="listeTickets">Liste Tickets</a></li>
                         {% endif %}
                         <li><a href="logout">Déconnexion</a></li>
                     </ul>
@@ -72,7 +73,7 @@
 
                     {{ form_row(form.idUE) }}
                     <button class="btn btn-success" type="submit">envoyer </button>
-                    {{ form_row(form.listeTicket) }}
+                   
                     {{ form_end(form) }}
                 </section>
             </div>

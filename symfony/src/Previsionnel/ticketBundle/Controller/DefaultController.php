@@ -77,9 +77,7 @@ class DefaultController extends Controller
 
             //generer le HTML du formulaire
             $formView = $form->createView();
-            if($form->get("listeTicket")->isClicked()){
-                return $this->redirectToRoute('mawaceticket_listeTickets');
-            }
+
             //on rend la vue
             return $this->render('mawaceticketBundle:Default:index.html.twig', [
                 'form'=>$formView,
