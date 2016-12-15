@@ -77,7 +77,9 @@ class DefaultController extends Controller
 
             //generer le HTML du formulaire
             $formView = $form->createView();
-
+            if($form->get("listeTicket")->isClicked()){
+                return $this->redirectToRoute('mawaceticket_listeTickets');
+            }
             //on rend la vue
             return $this->render('mawaceticketBundle:Default:index.html.twig', [
                 'form'=>$formView,
@@ -90,6 +92,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute("previsionneluser_accueil");
         }
     }
+
     // Autocomplete : Nom de l'UE
 
     public function searchUeAction(Request $request)
