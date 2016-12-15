@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 13 Décembre 2016 à 13:14
+-- Généré le :  Jeu 15 Décembre 2016 à 07:54
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -41,7 +41,14 @@ CREATE TABLE `archiveutilisateurs` (
 --
 
 INSERT INTO `archiveutilisateurs` (`id`, `idDepartement`, `idUtilisateur`, `idStatut`, `idRole`, `decharge`, `annee`) VALUES
-(1, 1, 1, 1, '2/3/7/8', 0, '2016-2017');
+(1, 1, 1, 1, '2/3', 0, '2016-2017'),
+(2, 1, 3, 1, '2/3', 25, '2016-2017'),
+(3, 1, 4, 1, '2/3', 25, '2016-2017'),
+(4, 1, 5, 1, '2/3', 25, '2016-2017'),
+(5, 1, 6, 1, '2/3', 25, '2016-2017'),
+(6, 1, 7, 1, '2/3', 25, '2016-2017'),
+(7, 1, 8, 1, '2/3', 25, '2016-2017'),
+(8, 1, 9, 1, '1/2/3/7/8/9', 0, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -149,7 +156,8 @@ CREATE TABLE `heuresaffectees` (
 
 INSERT INTO `heuresaffectees` (`id`, `idUtilisateur`, `idCours`, `nbHeures`, `annee`) VALUES
 (30, 1, 1, 20, '2016-2017'),
-(26, 1, 3, 10, '2016-2017');
+(26, 1, 3, 10, '2016-2017'),
+(31, 3, 1, 15, '2016-2017');
 
 -- --------------------------------------------------------
 
@@ -309,7 +317,14 @@ CREATE TABLE `utilisateurs` (
 --
 
 INSERT INTO `utilisateurs` (`id`, `login`, `nom`, `prenom`) VALUES
-(1, 'cdemko', 'DEMKO', 'Christophe');
+(1, 'cdemko', 'Demko', 'Christophe'),
+(3, 'jmorcos', 'Morcos', 'Jacques'),
+(4, 'arevel', 'Revel', 'Arnaud'),
+(5, 'aprigent', 'Prigent', 'Armelle'),
+(6, 'fbertrand', 'Bertrand', 'Frederic'),
+(7, 'bbesserer', 'Bernard', 'Besserer'),
+(8, 'tbouwmans', 'Bouwmans', 'Thierry '),
+(9, 'admin', 'Super', 'Admin');
 
 --
 -- Index pour les tables exportées
@@ -407,7 +422,7 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT pour la table `archiveutilisateurs`
 --
 ALTER TABLE `archiveutilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `coefficientsnormaux`
 --
@@ -427,12 +442,12 @@ ALTER TABLE `cours`
 -- AUTO_INCREMENT pour la table `departements`
 --
 ALTER TABLE `departements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `heuresaffectees`
 --
 ALTER TABLE `heuresaffectees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT pour la table `interdictionaffectation`
 --
@@ -472,7 +487,7 @@ ALTER TABLE `ue`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
