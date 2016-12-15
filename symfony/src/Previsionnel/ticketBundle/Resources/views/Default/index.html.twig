@@ -26,13 +26,7 @@
                             <li><a href="page-professeur/}">Résumé</a></li>
 
 
-
-
                             <li ><a href="prevision">Prévision</a></li>
-
-
-
-
 
                             <li class="active"><a href="tickets">Tickets</a></li>
 
@@ -48,8 +42,9 @@
                     {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
                     {{ form_row(form.motif) }}
                     {{ form_row(form.message) }}
-                    {{ form_row(form.date) }}
+
                     <div class="hidden" >
+                        {{ form_row(form.date) }}
                         {{ form_row(form.etat,{'value':'C'}) }}
                         {{ form_row(form.IdExpediteur,{value:  idUser } ) }}
                     </div>
