@@ -35,7 +35,13 @@ class statut
      */
     private $potentielBrut;
 
-
+	/**
+     * @var text
+     *
+     * @ORM\Column(name="ordreCours", type="text")
+     */
+    private $ordreCours;
+	
     /**
      * Get id
      *
@@ -93,5 +99,30 @@ class statut
     {
         return $this->potentielBrut;
     }
+	
+	/**
+     * Set ordreCours
+     *
+     * @param text $ordreCours
+     *
+     * @return statut
+     */
+    public function setOrdreCours($ordrecours)
+    {
+        $this->ordreCours = $ordrecours;
+
+        return $this;
+    }
+
+    /**
+     * Get ordreCours
+     *
+     * @return text
+     */
+    public function getOrdreCours()
+    {
+        return $this->ordreCours;
+    }
 }
+
 
