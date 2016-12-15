@@ -57,6 +57,7 @@
 
                             <div class="row">
                                 <ul class="ue-list list-unstyled col-xs-12 col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
+                                    {% if UEs is defined %}
                                     {% for ue in UEs %}
                                     {% for u in ue %}
                                     <li>
@@ -69,6 +70,7 @@
                                     </li>
                                 {% endfor %}
                                 {% endfor %}
+                                {% endif %}
                                 </ul>
                         </div>
                         </div>
