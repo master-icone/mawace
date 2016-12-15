@@ -239,7 +239,7 @@ CREATE TABLE `statut` (
 --
 
 INSERT INTO `statut` (`id`, `nom`, `potentielBrut`, `ordreCours`) VALUES
-(1, 'MCF', 192, '');
+(1, 'MCF', 192, '123');
 
 -- --------------------------------------------------------
 
