@@ -19,8 +19,9 @@ class SecretaireController extends Controller
         $now = new \DateTime("now");
         $now = $now->format("Y");
         $anneeScolaire = $now."-".($now + 1);
-
+        
         $em = $this->getDoctrine()->getManager();
+        $conn = $em->getConnection();
         $utilisateur = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Utilisateurs')->findOneBy([
             "login" => $user
         ]);

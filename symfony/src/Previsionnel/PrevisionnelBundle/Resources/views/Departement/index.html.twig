@@ -1,85 +1,89 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Département</title>
-    		{% block stylesheets %}
-		<!-- Bootstrap core CSS -->
-		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
-		<!-- Autocompleter theme -->
-		<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
-		<!-- Custom style -->
-		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-		{% endblock %}
-    <link rel="stylesheet" href="{{ asset('bundles/style.css') }}" type="text/css" />
-  </head>
-  <body>
+    <head>
+        <title>Département</title>
+        {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
+        <!-- Autocompleter theme -->
+        <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+        <!-- Custom style -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('bundles/style.css') }}" type="text/css" />
+    </head>
+    <body>
 
-    	<div class="container">
-
-
-
-
-
-
-    		<h1>Gestion Département</h1>
-			<div class="row">
-				<nav class="col-sm-2 col-sm-offset-10">
-					<ul class="nav nav-pills nav-stacked fixed">
-                        <li><a href="accueil">Accueil</a></li>
-                        {% if utilisateur.id is defined and annee is defined and "Résumé des cours" in roles %}
-                        <li><a href="page-professeur/{{ annee }}/{{ utilisateur.id }}">Résumé</a></li>
-                        {% endif %}
-                        {% if "Secrétaire" in roles %}
-                        <li><a href="secretaire">Secrétaire</a></li>
-                        {% endif %}
-                        {% if "Affectation d'heures de cours" in roles %}
-                        <li><a href="prevision">Prévision</a></li>
-                        {% endif %}
-                        {% if "Affectation des départements" in roles %}
-                        <li class="active"><a href="departement">Départements</a></li>
-                        {% endif %}
-                        {% if "Voir les tickets" in roles %}
-                        <li><a href="tickets">Tickets</a></li>
-                        {% endif %}
-                        <li><a href="logout">Déconnexion</a></li>
-					</ul>
-				</nav>
-
-			</div>
+        <div class="container">
 
 
 
 
 
 
+            <h1>Gestion Département</h1>
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-10">
+                    <nav>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="accueil">Accueil</a></li>
+                            {% if utilisateur.id is defined and annee is defined and "Résumé des cours" in roles %}
+                            <li><a href="page-professeur/{{ annee }}/{{ utilisateur.id }}">Résumé</a></li>
+                            {% endif %}
+                            {% if "Secrétaire" in roles %}
+                            <li><a href="secretaire">Secrétaire</a></li>
+                            {% endif %}
+                            {% if "Affectation d'heures de cours" in roles %}
+                            <li><a href="prevision">Prévision</a></li>
+                            {% endif %}
+                            {% if "Affectation des départements" in roles %}
+                            <li class="active"><a href="departement">Départements</a></li>
+                            {% endif %}
+                            {% if "Voir les tickets" in roles %}
+                            <li><a href="tickets">Tickets</a></li>
+                            {% endif %}
+                            <li><a href="logout">Déconnexion</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
 
 
-    		<div class="row">
-					<section class="col-sm-8 col-sm-offset-2">
 
 
-			{% for flash_message in app.session.flashBag.get('success') %}
-			    <div class="flash-notice alert alert-success">
-			    	<strong>Succès!</strong>
-			        {{ flash_message }}
-			    </div>
-			{% endfor %}
-
-			{% for flash_message in app.session.flashBag.get('echec') %}
-			    <div class="flash-notice alert alert-danger">
-			    	<strong>Échec!</strong>
-			        {{ flash_message }}
-			    </div>
-			{% endfor %}
 
 
-						{{ form_start(formDep) }}
-						{{ form_widget(formDep) }}
-						{{ form_end(formDep) }}
-					</section>
-    		</div>
+
+
+            <div class="row">
+                <section class="col-sm-8 col-sm-offset-2">
+
+
+                    {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class="flash-notice alert alert-success">
+                        <strong>Succès!</strong>
+                        {{ flash_message }}
+                    </div>
+                    {% endfor %}
+
+                    {% for flash_message in app.session.flashBag.get('echec') %}
+                    <div class="flash-notice alert alert-danger">
+                        <strong>Échec!</strong>
+                        {{ flash_message }}
+                    </div>
+                    {% endfor %}
+
+
+                    {{ form_start(formDep) }}
+                    {{ form_widget(formDep) }}
+                    {{ form_end(formDep) }}
+                </section>
+            </div>
+        </div>
+
+
 
 
 			<div class="row">
@@ -107,20 +111,19 @@
 
 
 
+        {% block javascripts %}
+        <!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <!-- Autocompleter calls -->
+        <script type="text/javascript">
 
-    			{% block javascripts %}
-		<!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-		<script src="{{ asset('bundles/pugxautocompleter/js/autocompleter-jqueryui.js') }}"></script>
-		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-		<!-- Autocompleter calls -->
-		<script type="text/javascript">
-
-			$('#previsionnel_previsionnelbundle_departements_nom').autocompleter({
+            $('#previsionnel_previsionnelbundle_departements_nom').autocompleter({
                 url_list: "{{ absolute_url('prevision/search-departement') }}",
                 url_get: "{{ absolute_url('prevision/get-departement') }}"
-			});
+            });
 
 			$('#previsionnel_previsionnelbundle_departements_departement').autocompleter({
                 url_list: "{{ absolute_url('prevision/search-departement') }}",
@@ -138,4 +141,5 @@
 
 
   </body>
+
 </html>

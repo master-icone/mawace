@@ -11,6 +11,12 @@ security:
       memory:
         users:
           cdemko:  { password: cdemko, roles: [ 'ROLE_USER' ] }
+          jmorcos:  { password: jmorcos, roles: [ 'ROLE_USER' ] }
+          arevel:  { password: arevel, roles: [ 'ROLE_USER' ] }
+          aprigent:  { password: aprigent, roles: [ 'ROLE_USER' ] }
+          fbertrand:  { password: fbertrand, roles: [ 'ROLE_USER' ] }
+          bbesserer:  { password: bbesserer, roles: [ 'ROLE_USER' ] }
+          tbouwmans:  { password: tbouwmans, roles: [ 'ROLE_USER' ] }
           test:  { password: test, roles: [ 'ROLE_USER' ] }
           admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
@@ -22,6 +28,9 @@ security:
         # Cette expression régulière permet de prendre /login (mais pas /login_check !)
         pattern:   ^/login$
         anonymous: true # On autorise alors les anonymes sur ce pare-feu
+    index:
+        pattern:   ^/index
+        anonymous: true
     main:
       pattern:      ^/
       anonymous:    false

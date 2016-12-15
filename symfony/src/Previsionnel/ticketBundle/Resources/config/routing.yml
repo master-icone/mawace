@@ -1,3 +1,15 @@
 mawaceticket_homepage:
     path:     /tickets
     defaults: { _controller: mawaceticketBundle:Default:index }
+
+mawaceticket_listeTickets:
+    path:     /listeTickets
+    defaults: { _controller: mawaceticketBundle:Default:listeTickets }
+
+mawaceticket_search_ue:
+    path:     /tickets/search-ue
+    defaults: { _controller: mawaceticketBundle:Default::searchUe }
+
+mawaceticket_get_ue:
+    path:     /tickets/get-ue/{id}
+    defaults: { _controller: mawaceticketBundle:Default:getUe }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Accueil</title>
+        {% block stylesheets %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <!-- <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet"> -->
+        <!-- Custom style -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
+
+        <div class="container">
+            <h1>Système prévisionnel {{ annee }}</h1>
+
+            <div class="row">
+                <section class="col-sm-8 col-sm-offset-2">
+                    <a style="float: right;" href="https://ent.univ-lr.fr/f/u73l1s6/normal/render.uP"><img style="width: 80px;" class="img-responsive" src="http://www.master2dpan.fr/wp-content/uploads/2016/01/cropped-IMG_1243.png" alt="Logo de l'université de La Rochelle"/></a>
+                    <p>Bienvenue sur le système prévisionnel <strong>{{ annee }}</strong> proposé par l'équipe MAWACE. Pour accéder au système, vous devrez vous connecter. Vous pouvez y accéder en cliquant sur le bouton ci-dessous.</p>
+                    <p>Vous pourrez par exemple, selon vos droits :</p>
+                    <ul>
+                        <li>Voir votre bilan prévisionnel</li>
+                        <li>Affecter des heures de cours à certains utilisateurs</li>
+                        <li>Envoyer et/ou voir des tickets</li>
+                        <li>Et bien d'autres...</li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="login" class="btn btn-primary btn-lg">Accéder au système</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        {% block javascripts %}
+        <!-- JQuery, JQuery UI, Autocompleter, Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        {% endblock %}
+
+    </body>
+</html>
