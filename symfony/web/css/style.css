@@ -17,6 +17,8 @@ nav > ul {
 
 h1 {
 	text-align: center;
+    color: white;
+    font-weight: bold;
 }
 
 nav .nav li {

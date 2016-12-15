@@ -43,15 +43,17 @@
                     </nav>
                 </div>
             </div>
-            <div class="row"><button id="cmd">Générer PDF</button></div>
             <div class="row">
                 <section class="col-sm-8 col-sm-offset-2">
                     <article class="row">
-                        <div id="linechart" class="col-md-6 col-md-push-6"></div>
+                        <div class="col-md-6 col-md-push-6 text-center">
+                            <div id="linechart"></div>
+                            <button id="cmd" class="btn btn-primary" style="margin-top: 5px;">Générer PDF</button>
+                        </div>
                         <div class="col-md-6 col-md-pull-6">
-                            <p>Nombre d'heures totales: {{ total }}</p>
-                            <p>Nombre d'heures hors-service : {{horsService}}</p>
-                            <p>Nombre d'heures totales avec coefficients: {{ totalCoeff }}</p>
+                            <p class="text-center">Nombre d'heures totales: {{ total }}</p>
+                            <p class="text-center">Nombre d'heures hors-service : {{horsService}}</p>
+                            <p class="text-center">Nombre d'heures totales avec coefficients: {{ totalCoeff }}</p>
 
                             <div class="row">
                                 <ul class="ue-list list-unstyled col-xs-12 col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
