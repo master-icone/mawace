@@ -6,54 +6,59 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class Coefficients extends AbstractType
 {
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
-		$builder
-			->add("idutilisateur", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
-				"class" => "PrevisionnelBundle:Utilisateurs",
-				"label" => "Professeur : ",
-				"attr" => ["placeholder" => "Professeur"],
-			])
-			->add("ue", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
-				"class" => "PrevisionnelBundle:Ue",
-				"label" => "UE : ",
-				"mapped" => false,
-				"attr" => ["placeholder" => "UE"],
-			])
-			->add("typecours", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
-				"class" => "PrevisionnelBundle:Typecours",
-				"label" => "Type de cours : ",
-				"mapped" => false,
-				"attr" => ["placeholder" => "Type de cours"],
-			])
-			->add("nbheures", NumberType::class, [
-				"label" => "Nombre d'heures : ",
-				"attr" => ["placeholder" => "Nombre d'heures"],
-				"data" => "0",
-			])
-			->add("ajouter", SubmitType::class, [
-				"label" => "Ajouter",
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add("idtypecours", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
+                "class" => "PrevisionnelBundle:Typecours",
+                "label" => "Type de cours : ",
+                "attr" => ["placeholder" => "Type de cours"],
+            ])
+            ->add("idstatut", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
+                "class" => "PrevisionnelBundle:Statut",
+                "label" => "Statut : ",
+                "attr" => ["placeholder" => "Statut"],
+            ])
+            ->add("coeff", NumberType::class, [
+                "label" => "Coefficient : ",
+                "mapped" => false,
+                "attr" => ["placeholder" => "Coefficient"],
+            ])
+            ->add("coefficienttype",ChoiceType::class, [
+                "choices" => [
+                "Normal" => "1",
+                "Supplémentaire" => "2"],
+                "mapped" => false,
+                "choices_as_values" => true,
+                "multiple" => false,
+                "expanded" => true,
+                "label" => "Type d'heures : ",
+                "attr" => ["placeholder" => "Type d'heures"],
+            ])
+            ->add("ajouter", SubmitType::class, [
+                "label" => "Ajouter",
                 "attr" => ["class" => "btn btn-success pull-left"],
-			])
-			->add("modifier", SubmitType::class, [
+            ])
+            ->add("modifier", SubmitType::class, [
                 "label" => "Modifier",
                 "attr" => ["class" => "btn btn-warning pull-left"],
-			])
-			->add("supprimer", SubmitType::class, [
+            ])
+            ->add("supprimer", SubmitType::class, [
                 "label" => "Supprimer",
                 "attr" => ["class" => "btn btn-danger"],
-			])
-			;
-	}
+            ])
+            ;
+    }
 
-	public function configureOptions(OptionsResolver $resolver)
-	{
-		$resolver->setDefaults(array(
-			'data_class' => 'Previsionnel\PrevisionnelBundle\Entity\Heuresaffectees'
-		));
-	}
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Previsionnel\PrevisionnelBundle\Entity\Coefficientsnormaux'
+        ));
+    }
 }

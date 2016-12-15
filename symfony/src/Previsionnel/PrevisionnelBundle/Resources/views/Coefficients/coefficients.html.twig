@@ -77,19 +77,14 @@
         <!-- Autocompleter calls -->
         <script type="text/javascript">
 
-            $('#prevision_idutilisateur').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-utilisateurs') }}",
-                url_get: "{{ absolute_url('prevision/get-utilisateurs') }}"
-            });
-
-            $('#prevision_ue').autocompleter({
-                url_list: "{{ absolute_url('prevision/search-ue') }}",
-                url_get: "{{ absolute_url('prevision/get-ue') }}"
-            });
-
-            $('#prevision_typecours').autocompleter({
+            $('#coefficients_idtypecours').autocompleter({
                 url_list: "{{ absolute_url('prevision/search-typecours') }}",
                 url_get: "{{ absolute_url('prevision/get-typecours') }}"
+            });
+
+            $('#coefficients_idstatut').autocompleter({
+                url_list: "{{ absolute_url('coefficients/search-statut') }}",
+                url_get: "{{ absolute_url('coefficients/get-statut') }}"
             });
 
         </script>

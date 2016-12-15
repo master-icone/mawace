@@ -47,3 +47,11 @@ previsionnel_get_departement:
 previsionnel_coefficients:
     path:     /coefficients
     defaults: { _controller: PrevisionnelBundle:Coefficients:coefficients }
+
+previsionnel_search_statut:
+    path:     /coefficients/search-statut
+    defaults: { _controller: PrevisionnelBundle:Coefficients:searchStatut }
+
+previsionnel_get_statut:
+    path:     /coefficients/get-statut/{id}
+    defaults: { _controller: PrevisionnelBundle:Coefficients:getStatut }
