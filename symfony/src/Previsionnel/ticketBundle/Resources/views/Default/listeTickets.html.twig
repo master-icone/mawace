@@ -50,6 +50,8 @@
                                 <th>Motif</th>
                                 <th>Message</th>
                                 <th>Etat</th>
+                                <th>Date d'envoi</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -58,6 +60,8 @@
                                 <td>{{ticket.motif}}</a></td>
                                 <td>{{ticket.message}}</td>
                                 <td>{{ticket.etat}}</td>
+                                <td>{{ticket.date|date('d-m-Y')}}</td>
+
                             </tr>
                             {% endfor %}
                         </tbody>
