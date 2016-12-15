@@ -5,7 +5,9 @@ namespace Previsionnel\PrevisionnelBundle\Controller;
 
 
 use Previsionnel\PrevisionnelBundle\Entity\Departements;
+use Previsionnel\PrevisionnelBundle\Entity\Archiveutilisateurs;
 use Previsionnel\PrevisionnelBundle\Forms\DepartementsType;
+use Previsionnel\PrevisionnelBundle\Forms\AffectationDepartements;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,15 +52,23 @@ class DepartementController extends Controller
 
         if (in_array("Affectation des départements", $listeRoles)) {
             $departements = new Departements();
-            $form = $this->createForm(DepartementsType::class, $departements);
-            $form->handleRequest($request);
+            $formDep = $this->createForm(DepartementsType::class, $departements);
 
 
-            if($form->issubmitted() && $form->isValid()){
+            $archiveUt=new Archiveutilisateurs();
+            $formAffect=$this->createForm(AffectationDepartements::class, $archiveUt);
+    
+
+            $formDep->handleRequest($request);
+            $formAffect->handleRequest($request);
+
+
+/********** formulaire d'ajout, modification et supression de departement ************/
+            if($formDep->issubmitted() && $formDep->isValid()){
                 $em = $this->getDoctrine()->getManager();
 
-                if ($form->get("ajouter")->isClicked()) {
-                    $departements->setNom($form->get('nouveauNom')->getData());
+                if ($formDep->get("ajouter")->isClicked()) {
+                    $departements->setNom($formDep->get('nouveauNom')->getData());
 
                     $em->persist($departements);
                     $em->flush();
@@ -73,10 +83,10 @@ class DepartementController extends Controller
 
 
 
-                if ($form->get("supprimer")->isClicked()){
-                    if(!empty($form->get('nom')->getData())){
+                if ($formDep->get("supprimer")->isClicked()){
+                    if(!empty($formDep->get('nom')->getData())){
                         $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
-                            "nom" => $form->get('nom')->getData()->getId()
+                            "nom" => $formDep->get('nom')->getData()->getId()
                         ]);
                         
 
@@ -105,15 +115,15 @@ class DepartementController extends Controller
 
 
 
-                if($form->get("modifier")->isClicked()){
-                    if(!empty($form->get('nom')->getData())){
+                if($formDep->get("modifier")->isClicked()){
+                    if(!empty($formDep->get('nom')->getData())){
                         $entities = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Departements')->findById([
-                            "nom" => $form->get('nom')->getData()->getId()
+                            "nom" => $formDep->get('nom')->getData()->getId()
                         ]);
 
                         if(!empty($entities)){
                             foreach ($entities as $entity) {
-                                $entity->setNom($form->get('nouveauNom')->getData());
+                                $entity->setNom($formDep->get('nouveauNom')->getData());
                             }
                         }
                         $em->flush();
@@ -139,9 +149,49 @@ class DepartementController extends Controller
             }
 
 
+
+/********** formulaire d'affectation d'un professeur a un departement ************/
+            if($formAffect->issubmitted() && $formAffect->isValid()){
+                
+
+
+
+/*
+                if ($formAffect->get("affecter")->isClicked()) {
+
+
+                    if(!empty($formAffect->get('idutilisateur')->getData())){
+                        $entProf = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Archiveutilisateurs')->findById([
+                            "idutilisateur" => $formAffect->get('idutilisateur')->getData()->getId()
+                            "idDepartement" => $formAffect->get('')
+                        ]);
+
+
+
+                    return $this->redirectToRoute('previsionnel_departement');
+
+                    }
+                }
+*/
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             $content = $this
                 ->get('templating')
-                ->render('PrevisionnelBundle:Departement:index.html.twig',array('form'=> $form->createView(),
+                ->render('PrevisionnelBundle:Departement:index.html.twig',array('formDep'=> $formDep->createView(),
+                                                                                'formAffect'=>$formAffect->createView(),
                                                                                 "utilisateur" => $utilisateur,
                                                                                 "roles" => $listeRoles,
                                                                                 "annee" => $anneeScolaire));
@@ -155,7 +205,48 @@ class DepartementController extends Controller
 
 
 
+    // ==================== Autocomplete functions ==================== //
 
+    // Autocomplete : Nom du professeur
+
+    public function searchUtilisateursAction(Request $request)
+    {
+        $nom = $request->query->get('term');
+        $nom = strtolower($nom);
+        $nom = explode(" ", $nom, 2);
+
+        if (count($nom) == 2) {
+            $results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Utilisateurs')->createQueryBuilder('u')
+                ->where('LOWER(u.nom) LIKE :nom')
+                ->orWhere('LOWER(u.prenom) LIKE :prenom')
+                ->setParameter('nom', '%'.$nom[0].'%')
+                ->setParameter('prenom', '%'.$nom[1].'%')
+                ->getQuery()
+                ->getResult();
+        }
+        else {
+            $results = $this->getDoctrine()->getRepository('PrevisionnelBundle:Utilisateurs')->createQueryBuilder('u')
+                ->where('LOWER(u.nom) LIKE :nom')
+                ->setParameter('nom', '%'.$nom[0].'%')
+                ->getQuery()
+                ->getResult();
+        }
+
+        return $this->render('PrevisionnelBundle:Prevision:autocomplete-professeur.html.twig', ['results' => $results]);
+    }
+
+    // Autocomplete : Nom du professeur
+
+    public function getUtilisateursAction($id = null)
+    {
+        return new Response($id);
+    }
+
+
+
+
+
+    // Autocomplete : Nom du departement
     public function searchDepartementAction(Request $request)
     {
         $typecours = $request->query->get('term');
@@ -170,7 +261,7 @@ class DepartementController extends Controller
         return $this->render('PrevisionnelBundle:Departement:autocomplete-departements.html.twig', ['results' => $results]);
     }
 
-    // Autocomplete : Nom du type de cours
+    // Autocomplete : departement
 
     public function getDepartementAction($id = null)
     {

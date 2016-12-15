@@ -75,18 +75,34 @@
 			{% endfor %}
 
 
-						{{ form_start(form) }}
-						{{ form_widget(form) }}
-						{{ form_end(form) }}
+						{{ form_start(formDep) }}
+						{{ form_widget(formDep) }}
+						{{ form_end(formDep) }}
 					</section>
     		</div>
+
+
+			<div class="row">
+        		<div class="col-sm-10 col-sm-offset-1"><hr></div>
+    		</div>
+
+
+
+
+
+<!-- deuxieme formulaire -->
+
+			<h1>Affectation Département</h1>
+			<div class="row">
+				<section class="col-sm-8 col-sm-offset-2">
+					{{ form_start(formAffect) }}
+					{{ form_widget(formAffect) }}
+					{{ form_end(formAffect) }}
+				</section>
+			</div>
+
+
     	</div>
-
-
-
-
-
-
 
 
 
@@ -106,9 +122,20 @@
                 url_get: "{{ absolute_url('prevision/get-departement') }}"
 			});
 
+			$('#previsionnel_previsionnelbundle_departements_departement').autocompleter({
+                url_list: "{{ absolute_url('prevision/search-departement') }}",
+                url_get: "{{ absolute_url('prevision/get-departement') }}"
+			});
+
+			$('#previsionnel_previsionnelbundle_departements_idutilisateur').autocompleter({
+                url_list: "{{ absolute_url('prevision/search-utilisateurs') }}",
+                url_get: "{{ absolute_url('prevision/get-utilisateurs') }}"
+			});
 
 
 		</script>
 		{% endblock %}
+
+
   </body>
 </html>
