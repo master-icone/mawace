@@ -71,7 +71,12 @@ section h1, section h2, section h3, section h4, section h5, section h6 {
 }
 
 @media screen and (max-width: 767px) {
-	.fixed {
+	nav {
 		position: static;
+        margin: 10px -15px;
 	}
+    
+    nav .nav li {
+        font-size: 18px;
+    }
 }
