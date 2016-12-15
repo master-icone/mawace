@@ -49,8 +49,9 @@
                     {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
                     {{ form_row(form.motif) }}
                     {{ form_row(form.message) }}
-                    {{ form_row(form.date) }}
+
                     <div class="hidden" >
+                        {{ form_row(form.date) }}
                         {{ form_row(form.etat,{'value':'C'}) }}
                         {{ form_row(form.IdExpediteur,{value:  utilisateur.id } ) }}
                     </div>
