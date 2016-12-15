@@ -56,7 +56,7 @@ class ResumeController extends Controller
 		$AUTREcoeff = 0;
 		$HorsService = 0;
 		$supp =0;
-		$ordre  = "123";
+		
 		
 		$idUser = $id;
 		
@@ -81,6 +81,7 @@ class ResumeController extends Controller
 		
 		$idStatut = $statut->getIdStatut();
 		$potentielBrut = $repositoryStatut->find($idStatut);
+		$ordre = $potentielBrut->getOrdreCours();
 		$valeurPB = $potentielBrut->getPotentielBrut();
 		$decharge = $repositoryArchiveUser->findOneByidUtilisateur($idUser);
 		$valeurDecharge = $decharge->getDecharge();
