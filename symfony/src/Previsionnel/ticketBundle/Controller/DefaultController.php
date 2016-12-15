@@ -67,7 +67,12 @@ class DefaultController extends Controller
 
                 $em->flush();
 
-                return new Response('ticket ajoute !');
+                $this->addFlash(
+                    'success',
+                    'Ticket ajouté'
+                );
+                return $this->redirectToRoute('mawaceticket_homepage');
+
             }
 
             //generer le HTML du formulaire

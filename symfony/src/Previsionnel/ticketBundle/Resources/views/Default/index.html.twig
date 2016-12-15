@@ -46,6 +46,20 @@
             <div class="row">
                 <section class="col-sm-8 col-sm-offset-2">
 
+                    {% for flash_message in app.session.flashBag.get('success') %}
+                        <div class="flash-notice alert alert-success">
+                            <strong>Succès!</strong>
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+
+                    {% for flash_message in app.session.flashBag.get('echec') %}
+                        <div class="flash-notice alert alert-danger">
+                            <strong>Échec!</strong>
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+
                     {{ form_start(form, {'attr': {'novalidate':'novalidate'}}) }}
                     {{ form_row(form.motif) }}
                     {{ form_row(form.message) }}
