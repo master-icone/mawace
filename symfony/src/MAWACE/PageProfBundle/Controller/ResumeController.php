@@ -74,8 +74,11 @@ class ResumeController extends Controller
 		
 		// On récupère l'entité correspondante au idUser
 		$user = $repositoryUser->find($idUser);
+		if($user == null) { return new Response("<h1>Cet utilisateur n'existe pas</h1>");}
 		
 		$statut = $repositoryArchiveUser->findOneBy(array('idUtilisateur'=>$idUser, 'annee' => $annee));
+		if($statut == null) { return new Response("<h1>Aucune archive pour ".$user->getPrenom()." ".$user->getNom()." sur l'année ".$annee."</h1>");}
+		
 		$idStatut = $statut->getIdStatut();
 		$potentielBrut = $repositoryStatut->find($idStatut);
 		$valeurPB = $potentielBrut->getPotentielBrut();
@@ -84,9 +87,16 @@ class ResumeController extends Controller
 		$valeurPN = $valeurPB-$valeurDecharge;
 		$heures = $repositoryHeuresAffectees->findBy(array('idUtilisateur'=>$idUser, 'annee' => $annee));//tableau avec les heures CM, TD, TP dans les UEs de l'utilisateurs
 		
-		$coeffsSupp = $repositoryCoeffSupp->findBy(array('idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
-				
+		$coeffsSupp = $repositoryCoeffSupp->findBy(array('idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut	
 		$coeffs = $repositoryCoeff->findBy(array('idStatut'=> $idStatut));
+		$types = $repositoryTypeCours->findAll();
+		$sommes = array();
+		$u = null;
+		$UEs = null;
+		foreach($types as $type)
+		{
+			$sommes[$type->getNom()] = 0;
+		}
 		
 		foreach($heures as $heure)
 		{
@@ -98,35 +108,25 @@ class ResumeController extends Controller
 				$type = $repositoryTypeCours->findOneByid($typeId); //Récupération du type
 				$typenom = $type->getNom(); //Récupération du nom du type (CM, TD, TP...)
 				
-					//$coeffsSupp[$typeId] = $repositoryCoeffSupp->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut)); //Récupération du coefficient correspondant en fonction du statut
-				
-					//$coeffs[$typeId] = $repositoryCoeff->findOneBy(array('idTypeCours'=> $typeId, 'idStatut'=> $idStatut));
-				
-				if($typenom == "CM"){ //Si c'est un CM								
-					$sommeCM = $sommeCM+(float)$heure->getNbHeures(); //Ajout à la somme des heures CM	
-					$u[$cours->getIdUE()]["CM"] = $heure->getNbHeures(); //Stockage des heures de CM à l'UE correspondante
-				}
-				if($typenom == "TD"){ //Si c'est un TD
-					$sommeTD = $sommeTD+(float)$heure->getNbHeures();
-					$u[$cours->getIdUE()]["TD"]= $heure->getNbHeures();
-				}
-				if($typenom == "TP"){ //SI c'est un TP
-					$sommeTP = $sommeTP+(float)$heure->getNbHeures();
-					$u[$cours->getIdUE()]["TP"] = $heure->getNbHeures();
-				}
-				
-				if($typenom != "CM" && $typenom != "TD" && $typenom != "TP"){
-					$sommeAutre = $sommeAutre+(float)$heure->getNbHeures();
-					$u[$cours->getIdUE()]["AUTRE"] = $heure->getNbHeures();
-				}
-				
+				$sommes[$typenom] = $sommes[$typenom]+$heure->getNbHeures();
+				$u[$cours->getIdUE()][$typenom] = $heure->getNbHeures();
 				
 				
 			}
 			
 		}
-		$total = $sommeCM+$sommeTD+$sommeTP+$sommeAutre;
-		$typeCours = array($sommeCM, $sommeTD, $sommeTP, $sommeAutre);
+		$total = array_sum($sommes);
+		
+		$typeCours = array();
+		$data = array();
+		foreach($sommes as $type => $somme)
+		{
+			$typeCours[] = $somme;
+			if($somme !=0)
+			{
+				$data[] = array($type,$somme);
+			}
+		}
 		
 		$potentielRestant = $valeurPN;
 		for($i=0; $i < count($coeffs); $i++)
@@ -150,12 +150,7 @@ class ResumeController extends Controller
 		array(
             "type" => "pie",
             "name" => "Heures totales",
-            "data" => array(
-                array('CM', $sommeCM),
-                array('TD', $sommeTD),
-                array('TP', $sommeTP),
-                array('Autre', $sommeAutre)
-                    ),
+            "data" => $data,
 			"size" => 200,
 			"showInLegend" => true,
 			"dataLabels" => array(
@@ -170,11 +165,25 @@ class ResumeController extends Controller
        $ob->title->text(null);
 	   $ob->series($sellsHistory);
 
-		
-        return $this->render('MAWACEPageProfBundle:Resume:view.html.twig', array('linechart' => $ob,'user' => $user, 'horsService' => $HorsService, 'heuresUEs' => $u, 'UEs' => $UEs, 'total' => $total, 'totalCoeff' => $totalCoeff, 
-                                                                                 "utilisateur" => $utilisateur,
-                                                                                 "roles" => $listeRoles,
-                                                                                 "annee" => $anneeScolaire));
+	$donnees = array();
+	   
+	   $donnees['linechart'] = $ob;
+		$donnees['user'] = $user;
+		$donnees['horsService'] = $HorsService;
+		if($u != null)
+		{
+			$donnees['heuresUEs'] = $u;
+		}
+		if($UEs != null)
+		{
+			$donnees['UEs'] = $UEs;
+		}
+		$donnees['total'] = $total;
+		$donnees['totalCoeff'] = $totalCoeff;
+		$donnees['utilisateur'] = $utilisateur;
+		$donnees['roles'] = $listeRoles;
+		$donnees['annee'] = $anneeScolaire;	
+        return $this->render('MAWACEPageProfBundle:Resume:view.html.twig', $donnees);
     }
     else {
         return $this->redirectToRoute("previsionneluser_accueil");
