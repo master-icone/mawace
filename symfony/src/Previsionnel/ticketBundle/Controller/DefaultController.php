@@ -61,7 +61,7 @@ class DefaultController extends Controller
         $ue = $request->query->get('term');
         $ue = strtolower($ue);
 
-        $results = $this->getDoctrine()->getRepository('mawaceticketBundle:Ue')->createQueryBuilder('u')
+        $results = $this->getDoctrine()->getRepository('ticketBundle:Ue')->createQueryBuilder('u')
             ->where('LOWER(u.nom) LIKE :nom')
             ->setParameter('nom', '%'.$ue.'%')
             ->getQuery()
