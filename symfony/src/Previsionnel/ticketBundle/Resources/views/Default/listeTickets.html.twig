@@ -21,21 +21,22 @@
                     <nav>
                         <ul class="nav nav-pills nav-stacked">
                             <li><a href="accueil">Accueil</a></li>
-
-                            <li><a href="page-professeur/}">Résumé</a></li>
-
-
+                            {% if utilisateur.id is defined and annee is defined and "Résumé des cours" in roles %}
+                            <li><a href="page-professeur/{{ annee }}/{{ utilisateur.id }}">Résumé</a></li>
+                            {% endif %}
+                            {% if "Secrétaire" in roles %}
                             <li><a href="secretaire">Secrétaire</a></li>
-
-
-                            <li ><a href="prevision">Prévision</a></li>
-
-
+                            {% endif %}
+                            {% if "Affectation d'heures de cours" in roles %}
+                            <li><a href="prevision">Prévision</a></li>
+                            {% endif %}
+                            {% if "Affectation des départements" in roles %}
                             <li><a href="departement">Départements</a></li>
-
-
-                            <li class="active"><a href="tickets">Tickets</a></li>
-
+                            {% endif %}
+                            {% if "Voir les tickets" in roles %}
+                            <li ><a href="tickets">Tickets</a></li>
+                                <li class="active"><a href="listeTickets">Liste Tickets</a></li>
+                            {% endif %}
                             <li><a href="logout">Déconnexion</a></li>
                         </ul>
                     </nav>
@@ -49,6 +50,8 @@
                                 <th>Motif</th>
                                 <th>Message</th>
                                 <th>Etat</th>
+                                <th>Date d'envoi</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -57,6 +60,8 @@
                                 <td>{{ticket.motif}}</a></td>
                                 <td>{{ticket.message}}</td>
                                 <td>{{ticket.etat}}</td>
+                                <td>{{ticket.date|date('d-m-Y')}}</td>
+
                             </tr>
                             {% endfor %}
                         </tbody>
