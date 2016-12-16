@@ -25,7 +25,7 @@ class ticketType extends AbstractType
 		->add('etat',TextType::class)
 		->add('IdExpediteur',TextType::class)
 		->add('idUE',"PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
-            "class" => "mawaceticketBundle:ticket",
+            "class" => "mawaceticketBundle:Ue",
             "label" => "UE : ",
             "mapped" => false,
             "attr" => ["placeholder" => "UE"]]);

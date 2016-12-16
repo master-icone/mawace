@@ -21,7 +21,7 @@
             <div class="col-sm-2 col-sm-offset-10">
                 <nav>
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="accueil">Accueil</a></li>
+                        <li class="active"><a href="accueil">Accueil</a></li>
                         {% if utilisateur.id is defined and annee is defined and "Résumé des cours" in roles %}
                         <li><a href="page-professeur/{{ annee }}/{{ utilisateur.id }}">Résumé</a></li>
                         {% endif %}
@@ -34,12 +34,15 @@
                         {% if "Affectation des départements" in roles %}
                         <li><a href="departement">Départements</a></li>
                         {% endif %}
+                        {% if "Envoyer un ticket" in roles %}
+                        <li><a href="tickets">Envoyer un ticket</a></li>
+                        {% endif %}
                         {% if "Voir les tickets" in roles %}
-                        <li class="active"><a href="tickets">Tickets</a></li>
-                        <li><a href="listeTickets">Liste Tickets</a></li>
+                        <li><a href="listeTickets">Voir les tickets</a></li>
                         {% endif %}
                         <li><a href="logout">Déconnexion</a></li>
                     </ul>
+                </nav>
                 </nav>
             </div>
         </div>
