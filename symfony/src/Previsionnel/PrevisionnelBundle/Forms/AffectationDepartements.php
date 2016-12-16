@@ -23,13 +23,15 @@ class AffectationDepartements extends AbstractType
                 "class" => "PrevisionnelBundle:Utilisateurs",
                 "label" => "Professeur : ",
                 "attr" => ["placeholder" => "Professeur"],
+                "required" => false,
             ])
 
 
             ->add("departement", "PUGX\AutocompleterBundle\Form\Type\AutocompleteType", [
                 "mapped" => false,
                 "class" => "PrevisionnelBundle:Departements",
-                "attr" => ["placeholder" => "Département"]
+                "attr" => ["placeholder" => "Département"],
+                "required" => false,
             ])
 
 

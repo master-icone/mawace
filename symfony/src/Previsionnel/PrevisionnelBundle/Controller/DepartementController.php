@@ -152,19 +152,28 @@ class DepartementController extends Controller
 
 /********** formulaire d'affectation d'un professeur a un departement ************/
             if($formAffect->issubmitted() && $formAffect->isValid()){
-                
 
-
-
-/*
                 if ($formAffect->get("affecter")->isClicked()) {
 
 
                     if(!empty($formAffect->get('idutilisateur')->getData())){
                         $entProf = $em->getRepository('Previsionnel\PrevisionnelBundle\Entity\Archiveutilisateurs')->findById([
                             "idutilisateur" => $formAffect->get('idutilisateur')->getData()->getId()
-                            "idDepartement" => $formAffect->get('')
                         ]);
+
+                        $entDep= $em->get
+
+                        if(!empty($entProf) && $entProf!=null){
+                            foreach ($entProf as $ent) {
+                                $ent->setIddepartement($formAffect->get('departement')->getData()->getId());
+                            }
+                            $this->addFlash('succesAffect','Département affecté');
+                            $em->flush();
+
+                        }
+                        else{
+                            $this->addFlash('echecAffect','Professeur ou département non existant');
+                        }
 
 
 
@@ -172,18 +181,8 @@ class DepartementController extends Controller
 
                     }
                 }
-*/
+
             }
-
-
-
-
-
-
-
-
-
-
 
 
 
