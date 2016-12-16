@@ -161,7 +161,7 @@ class DepartementController extends Controller
                             "idutilisateur" => $formAffect->get('idutilisateur')->getData()->getId()
                         ]);
 
-                        $entDep= $em->get
+                        
 
                         if(!empty($entProf) && $entProf!=null){
                             foreach ($entProf as $ent) {
